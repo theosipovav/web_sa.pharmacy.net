@@ -1,6 +1,6 @@
 html,
 body {
-  color: #fff;
+  color: #000;
 }
 
 nav {
@@ -8,14 +8,20 @@ nav {
   height: 55px;
 }
 
-.content, .app-authentication, .app-registration {
+.content {
   margin-top: 55px;
 }
 
 
-
 .app-authentication {
   background: #333;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding-top: 100px;
 }
 
 .app-authentication .form-signin {

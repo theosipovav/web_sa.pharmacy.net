@@ -1,16 +1,52 @@
-<div class="app-registration">
-<div class="container text-center">
-    <form class="form-signin">
-        <img class="mb-4" src="img/logo.png" height="64px" alt="CCA">
-        <h1 class="h3 mb-3 font-weight-normal">Авторизация</h1>
-        <label for="inputEmail" class="sr-only">Адрес электронной почты</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Адрес электронной почты" required="" autofocus="">
-        <label for="inputPassword" class="sr-only">Пароль</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" required="">
+<div class="content app-registration">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <h1 class="h1">
+                Регистрация нового пользователя
+                </h1>
+            </div>
+        </div>
         <hr/>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
-        <a href="registration.php" class="btn btn-lg btn-outline-primary btn-block">Зарегистрироваться</a>
-        <p class="mt-5 mb-3 text-muted">© 2017-2019</p>
-    </form>
-</div>
+        <div class="row">
+            <div class="col-md-6">
+                <img src="img/multiple-users-silhouette.png" class="rounded mx-auto d-block" style="width: 80%;" alt="...">
+
+            </div>
+            <div class="col-md-6">
+                <form>
+                    <div class="form-group">
+                        <label for="InputFullName">Полное имя</label>
+                        <input type="text" class="form-control" id="InputFullName" aria-describedby="emailHelp"
+                            placeholder="Введите полное имя">
+                        <small id="Smal" class="form-text text-muted">Ваше полное имя (как к вам обращаться)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="InputEmail">Электронная почта</label>
+                        <input type="email" class="form-control" id="InputEmail" aria-describedby="SmalEmail"
+                            placeholder="Введите адрес">
+                        <small id="SmalEmail" class="form-text text-muted">Ваш адрес электронной почты</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="InputLogin">Логин</label>
+                        <input type="text" class="form-control" id="InputLogin" placeholder="Введите логин">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="InputPassword">Пароль</label>
+                        <input type="password" class="form-control" id="InputPassword" placeholder="Введите пароль">
+                    </div>
+                    <div class="form-group">
+                        <label for="InputRepeatPassword">Повторите пароль</label>
+                        <input type="password" class="form-control" id="InputRepeatPassword"
+                            placeholder="Повторите пароль">
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">Зарегистрироваться</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

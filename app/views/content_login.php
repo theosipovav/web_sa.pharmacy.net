@@ -1,4 +1,4 @@
-<div class="app-authentication">
+<div class="content app-authentication">
 <div class="container text-center">
     <form class="form-signin">
         <img class="mb-4" src="img/logo.png" height="64px" alt="CCA">

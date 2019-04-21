@@ -1,5 +1,17 @@
 <?php
-$link_main = '<span class="sr-only">(current)</span>';
-$header = file_get_contents("app/views/header.php");
-$content = file_get_contents("app/views/content_login.php");
-include 'app/views/main.php';
+
+ob_start();
+include "app/views/header.php";
+$header = ob_get_contents();
+ob_end_clean();
+ob_start();
+include "app/views/content_registration.php";
+$content = ob_get_contents();
+ob_end_clean();
+
+ob_start();
+include "app/views/main.php";
+$site = ob_get_contents();
+ob_end_clean();
+
+print($site);
