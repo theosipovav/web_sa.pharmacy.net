@@ -5,15 +5,14 @@ body {
 
 nav {
   background: #333;
+  height: 55px;
 }
 
-.content {
-  margin-top: 100px;
+.content, .app-authentication, .app-registration {
+  margin-top: 55px;
 }
 
-.app-authentication {
-  margin-top: 150px;
-}
+
 
 .app-authentication {
   background: #333;

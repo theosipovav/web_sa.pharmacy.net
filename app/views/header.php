@@ -1,4 +1,22 @@
 <?php
+$isAuth = FALSE;
+
+
+if ($isAuth) 
+{
+  ob_start();
+  include "app/views/header_logout.php";
+  $widgetAuth = ob_get_contents();
+  ob_end_clean();
+}
+else 
+{
+  ob_start();
+  include "app/views/header_login.php";
+  $widgetAuth = ob_get_contents();
+  ob_end_clean();
+}
+
 
 if (!isset($link_main)) $link_main = "";
 if (!isset($link_products)) $link_products = "";
@@ -29,11 +47,7 @@ if (!isset($link_about)) $link_about = "";
           <a class="nav-link" href="about.php">О системе <?php print($link_about); ?></a>
         </li>
       </ul>
-      <?php 
-      $isAuth = FALSE;
-      if ($isAuth) include_once("app/views/header_logout.php");
-      else include_once("app/views/header_login.php");
-      ?>
+      <?php print($widgetAuth); ?>
     </div>
   </div>
 </nav>
