@@ -1,5 +1,16 @@
 <?php
-$link_about = '<span class="sr-only">(current)</span>';
-$header = include_once("app/views/header.php");
-$content = include_once("app/views/content_main.php");
-include 'app/views/main.php';
+ob_start();
+include "app/views/header.php";
+$header = ob_get_contents();
+ob_end_clean();
+ob_start();
+include "app/views/content_about.php";
+$content = ob_get_contents();
+ob_end_clean();
+
+ob_start();
+include "app/views/main.php";
+$site = ob_get_contents();
+ob_end_clean();
+
+print($site);

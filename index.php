@@ -1,6 +1,4 @@
 <?php
-$link_main = '<span class="sr-only">(current)</span>';
-
 ob_start();
 include "app/views/header.php";
 $header = ob_get_contents();

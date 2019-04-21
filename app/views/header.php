@@ -17,11 +17,29 @@ else
   ob_end_clean();
 }
 
-
-if (!isset($link_main)) $link_main = "";
-if (!isset($link_products)) $link_products = "";
-if (!isset($link_list_res)) $link_list_res = "";
-if (!isset($link_about)) $link_about = "";
+$link_main = "";
+$link_products = "";
+$link_list_res = "";
+$link_about = "";
+$sScriptFileName = $_SERVER["SCRIPT_FILENAME"];
+$sPathInfo = pathinfo($sScriptFileName);    
+switch ($sPathInfo['basename']) 
+{
+  case 'index.php':
+    $link_main = '<span class="sr-only">(current)</span>';
+    break;
+  case 'products.php':
+    $link_products = '<span class="sr-only">(current)</span>';
+    break;
+  case 'listres.php':
+    $link_list_res = '<span class="sr-only">(current)</span>';
+    break;
+  case 'about.php':
+    $link_about = '<span class="sr-only">(current)</span>';
+    break;
+  default:
+    break;
+}
 ?>
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark">
   <div class="container">
