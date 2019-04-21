@@ -4,7 +4,7 @@ include "app/views/header.php";
 $header = ob_get_contents();
 ob_end_clean();
 ob_start();
-include "app/views/content_list_product.php";
+include "app/views/content_listres.php";
 $content = ob_get_contents();
 ob_end_clean();
 
