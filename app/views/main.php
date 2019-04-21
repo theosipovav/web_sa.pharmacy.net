@@ -12,15 +12,15 @@ $isAuth = false;
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
-  <link href="css/bootstrap-table.min.css" rel="stylesheet">
+  <link href="css/bootstrap-table.min.css" rel="stylesheet" />
   <link href="css/app-main.css" rel="stylesheet" type="text/css" />
-  <link href="css/app-authentication.css" rel="stylesheet" type="text/css" />
   <title>Система по синтаксическому анализу открытых веб ресурсов</title>
 </head>
 
 <body>
-  <? print($header); ?>
-  <? print($content); ?>
+  <?php $header ?>
+  <div class="content">qweqwe</div>
+  
   <script src="js/jquery-3.2.1.min.js"></script>
   <script src="js/jquery-ui.min.js"></script>
   <script src="js/bootstrap.min.js"></script>

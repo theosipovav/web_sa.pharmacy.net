@@ -5,7 +5,7 @@ if (!isset($link_products)) $link_products = "";
 if (!isset($link_list_res)) $link_list_res = "";
 if (!isset($link_about)) $link_about = "";
 ?>
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-transparent">
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark">
   <div class="container">
     <a class="navbar-brand" href=".">
       <img src="img/logo.png" height="30" alt="CCA">
