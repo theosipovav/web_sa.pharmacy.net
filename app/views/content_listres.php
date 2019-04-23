@@ -19,13 +19,13 @@
                 <tr>
                     <th scope="row">1</th>
                     <td>
-                    366.ru
+                        www.eapteka.ru
                     </td>
                     <td class="text-right">
                         21-04-2019
                     </td>
                     <td class="text-right">
-                        <a href="https://366.ru/c/lekarstva/?page=0&q=:priority-desc" target="_blank" class="btn btn-outline-light ">На сайт</a>
+                        <a href="https://www.eapteka.ru/goods/drugs/" target="_blank" class="btn btn-outline-light ">На сайт</a>
                         <a href="app/controllers/scan.php" target="_blank" class="btn btn-light">Проанализировать</a>
                     </td>
                 </tr>
