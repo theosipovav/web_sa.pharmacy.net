@@ -1,4 +1,5 @@
 <?php
+session_start();
 ob_start();
 include "app/views/header.php";
 $header = ob_get_contents();

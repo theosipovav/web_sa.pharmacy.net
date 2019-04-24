@@ -1,10 +1,24 @@
 <?php
-$isAuth = FALSE;
-
+if (isset($_SESSION))
+{
+  if (isset($_SESSION["id"]) && isset($_SESSION["login"]) && isset($_SESSION["name"]))
+  {
+    $isAuth = TRUE;
+  }
+  else
+  {
+    $isAuth = FALSE;
+  }
+}
+else
+{
+  $isAuth = FALSE;
+}
 
 if ($isAuth) 
 {
   ob_start();
+  $username = $_SESSION["name"];
   include "app/views/header_logout.php";
   $widgetAuth = ob_get_contents();
   ob_end_clean();
@@ -69,3 +83,49 @@ switch ($sPathInfo['basename'])
     </div>
   </div>
 </nav>
+
+
+<div class="modal fade" id="ModalUserInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content usercard">
+      <div class="usercard-header">
+        <div class="avatar">
+        </div>
+      </div>
+      <div class="usercard-body">
+        <div class="row">
+          <div class="col">
+            <h3>
+              <span id="SpanUserName" class="display-5"></span>
+            </h3>
+          </div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col">
+            <div class="usercard-label" >Логин пользователя</div>
+            <div class="usercard-value" ><span id="SpanLogin"></span></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="usercard-label" >Электронная почта</div>
+            <div class="usercard-value" ><span id="SpanEmail"></span></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="usercard-label" >Дата регистрации</div>
+            <div class="usercard-value" ><span id="SpanDateRegistration"></span></div>
+          </div>
+        </div>
+        <hr/>
+      </div>
+      <div class="usercard-footer text-right">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+      </div>
+    </div>
+
+  </div>
+</div>

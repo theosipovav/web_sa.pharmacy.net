@@ -80,11 +80,9 @@ nav {
   padding-top: 100px;
 }
 
-.app-listres{
-  
-}
+.app-listres {}
 
-.app-about{
+.app-about {
   background: #333;
   color: #fff;
   position: absolute;
@@ -96,8 +94,47 @@ nav {
 }
 
 
+.usercard {
+  background: #fff;
+  border-radius: 5px;
+}
+
+.usercard-header {}
+
+.usercard-header .avatar {
+  background: url(../img/multiple-users-silhouette.png);
+  background-size: cover;
+  background-position: center;
+  height: 200px;
+  vertical-align: bottom;
+}
+
+.usercard-header img {}
+
+.usercard-body {}
+
+.usercard-footer {
+  padding: 5px 10px;
+}
+
+.usercard-label {
+  padding-left: 15px;
+  font-style: italic;
+  color: #7b7b7b;
+  text-align: left;
+  cursor: default;
+}
+.usercard-value {
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 1.2;
+  text-align: right;
+  padding-right: 15px;
+}
 
 
-
-
-
+.display-5 {
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
