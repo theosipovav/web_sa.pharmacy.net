@@ -1,26 +1,50 @@
 <?php
 require_once("../lib/parser/simple_html_dom.php");
 
-$url1 = 'https://366.ru/c/lekarstva/?page=0&q=%3Apriority-desc';
+$url = 'https://366.ru/c/lekarstva/?page=0&q=%3Apriority-desc';
+$url_1 = 'https://366.ru/c/lekarstva/?page=';
+$url_2 = '&q=%3Apriority-desc';
 
-@$site_parsing = file_get_html($url1);
-$site_parsing_tables = $site_parsing -> find('div.c-prod-item-list div.c-prod-item');
+$aScanObjs = array();
 
-foreach($site_parsing_tables as $item) {
-    $a1 = $item -> find('h3.c-prod-item__title', 0)->plaintext;
-    $a2 = $item -> find('div.c-prod-item__manufacturer div', 0)->plaintext;
-    $a3 = $item -> find('div.c-prod-item__manufacturer div', 1)->plaintext;
-    $a4 = $item -> find('div.c-prod-item__manufacturer div', 2)->plaintext;
+$isRead = TRUE;
+$n = 0;
+while ($isRead) {
+    @$site_parsing = file_get_html($url_1 . $n . $url_2);
+    $site_parsing_tables = $site_parsing -> find('div.c-prod-item-list div.c-prod-item');
 
-    
-    echo "Наименование: ". $a1;
-    echo "<br>";
-    echo "Компания: " . $a2;
-    echo "<br>";
-    echo "Страна: " . $a3;
-    echo "<br>";
-    echo "Категория: " . $a4;
+    if ($site_parsing_tables == null)
+    {
+        $isRead = false;
+        echo "<h1>все</h1>";
+    }
 
-    echo "<hr/>";
-    break;
+
+
+    foreach($site_parsing_tables as $item) {
+        $name = trim($item->find('div.c-prod-item__title', 0)->innertext);
+        $price = $item -> find('span.b-price span meta', 0)->getAllAttributes()["content"];
+        $info = "";
+        @$company = $item -> find('div.c-prod-item__manufacturer div', 0)->innertext;
+        if (isset($company)) $info .= "Компания: " . $company . "<br>";
+        @$country = $item -> find('div.c-prod-item__manufacturer div', 1)->innertext;
+        if (isset($country)) $info .= "Страна: " . $country . "<br>";
+        @$category = $item -> find('div.c-prod-item__manufacturer div', 2)->innertext;
+        if (isset($category)) $info .= "Категория: " . $category . "<br>";
+        
+        $row = array
+        (
+            "cource_id" => "1",
+            "name" => $name,
+            "price" => $price,
+            "info" => $info
+        );
+        array_push($aScanObjs, $row);
+    }
+
+    $n++;
+   
 }
+
+
+echo "<hr>".count($aScanObjs);
