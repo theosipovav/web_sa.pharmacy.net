@@ -10,6 +10,12 @@ switch ($controller) {
     case 'main':
         include "app/controllers/main.php";
         break;
+    case 'login':
+        include "app/controllers/login.php";
+        break;
+    case 'registration':
+        include "app/controllers/registration.php";
+        break;
     case 'products':
         include "app/controllers/products.php";
         break;
