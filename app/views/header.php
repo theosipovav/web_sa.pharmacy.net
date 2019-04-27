@@ -70,13 +70,13 @@ switch ($sPathInfo['basename'])
           <a class="nav-link" href=".">Главная <?php print($link_main); ?></span></a>
         </li>
         <li class="nav-item <?php if ($link_products != "") print("active"); ?>">
-          <a class="nav-link" href="products.php">Продукция <?php print($link_products); ?></a>
+          <a class="nav-link" href=".?r=products">Продукция <?php print($link_products); ?></a>
         </li>
         <li class="nav-item <?php if ($link_list_res != "") print("active"); ?>">
-          <a class="nav-link" href="listres.php">Список анализируемых ресурсов <?php print($link_list_res); ?></a>
+          <a class="nav-link" href=".?r=source">Список анализируемых ресурсов <?php print($link_list_res); ?></a>
         </li>
         <li class="nav-item <?php if ($link_about != "") print("active"); ?>">
-          <a class="nav-link" href="about.php">О системе <?php print($link_about); ?></a>
+          <a class="nav-link" href=".?r=about">О системе <?php print($link_about); ?></a>
         </li>
       </ul>
       <?php print($widgetAuth); ?>

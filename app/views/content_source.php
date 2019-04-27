@@ -16,21 +16,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>
-                        www.366.ru/
-                    </td>
-                    <td class="text-right">
-                        21-04-2019
-                    </td>
-                    <td class="text-right">
-                        <a href="https://366.ru/c/lekarstva/?page=0&q=%3Apriority-desc" target="_blank"
-                            class="btn btn-outline-light ">На сайт</a>
-                        <a href="app/controllers/scan.php" target="_blank" class="btn btn-light">Проанализировать</a>
-                    </td>
-                </tr>
-
+                <?php
+                $n = 0;
+                foreach ($ArraySourceObject as $item) {
+                    $n++;
+                    echo '<tr>';
+                    echo '<th scope="row">'.$n.'</th>';
+                    echo '<td>'.$item["name"].'</td>';
+                    echo '<td class="text-right">'.$item["date"].'</td>';
+                    echo '<td class="text-right"><a href="'.$item["url"].'" target="_blank" class="btn btn-outline-light ">Перейти на сайт</a>  </td>';
+                    echo '</tr>';
+                }
+                ?>
             </tbody>
         </table>
 
