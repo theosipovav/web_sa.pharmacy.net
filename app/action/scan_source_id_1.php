@@ -2,7 +2,7 @@
 require_once("../lib/parser/simple_html_dom.php");
 
 $nSourceId = 1;
-$dateCurrent = date('Y-m-d');
+$dateCurrent = date('Y-m-d H:i:s');
 $nLogId = 0;
 
 $pdoConnection = new PDO('mysql:host=localhost;dbname=sa.pharmacy.net', 'administrator', '611094');
