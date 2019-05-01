@@ -12,12 +12,8 @@ $(document).ready(function () {
     fnViewDataDefault();
 
 
-
-
-
-    // Graph Toggle ############################################
+    // Инициализация компонента рейтинг
     $('#graph-bars').hide();
-
     $('#lines').on('click', function (e) {
         $('#bars').removeClass('active');
         $('#graph-bars').fadeOut();
@@ -25,7 +21,6 @@ $(document).ready(function () {
         $('#graph-lines').fadeIn();
         e.preventDefault();
     });
-
     $('#bars').on('click', function (e) {
         $('#lines').removeClass('active');
         $('#graph-lines').fadeOut();
@@ -33,11 +28,13 @@ $(document).ready(function () {
         $('#graph-bars').fadeIn().removeClass('hidden');
         e.preventDefault();
     });
-
-    
-
+    function showTooltip(x, y, contents) {
+        $('<div id="tooltip" style="position: fixed;">' + contents + '</div>').css({
+            top: y - 15,
+            left: x + 20
+        }).appendTo('#graph-wrapper').fadeIn();
+    }
     var previousPoint = null;
-
     $('#graph-lines, #graph-bars').bind('plothover', function (event, pos, item) {
         if (item) {
             if (previousPoint != item.dataIndex) {
@@ -45,7 +42,7 @@ $(document).ready(function () {
                 $('#tooltip').remove();
                 var x = item.datapoint[0],
                     y = item.datapoint[1];
-                showTooltip(item.pageX, item.pageY, y + ' visitors at ' + x + '.00h');
+                showTooltip(item.pageX, item.pageY, y + ' руб. на ' + x);
             }
         } else {
             $('#tooltip').remove();
@@ -299,6 +296,18 @@ function fnViewDataDefault() {
  * @param  {json} data
  */
 function fnLoadDataChartsPrice(data) {
+
+
+    var nMaxValueY = 0;
+    var nMaxValueX = data.length;
+    for (let i = 0; i < data.length; i++)
+    {
+        if (nMaxValueY < data[i][1]) nMaxValueY = data[i][1];
+
+
+    }
+
+
     var graphData = [{
         data: data,
         color: '#77b7c5',
@@ -317,7 +326,7 @@ function fnLoadDataChartsPrice(data) {
                 show: true
             },
             shadowSize: 0
-        },
+        },  
         grid: {
             color: '#646464',
             borderColor: 'transparent',
@@ -326,10 +335,11 @@ function fnLoadDataChartsPrice(data) {
         },
         xaxis: {
             tickColor: 'transparent',
-            tickDecimals: 2
+            tickDecimals: 2,
+            show: false
         },
         yaxis: {
-            tickSize: 1000
+            tickSize: nMaxValueY
         }
     });
     $.plot($('#graph-bars'), graphData, {
@@ -352,15 +362,8 @@ function fnLoadDataChartsPrice(data) {
             tickDecimals: 2
         },
         yaxis: {
-            tickSize: 1000
+            tickSize: nMaxValueY
         }
     });
-    
-}
-// Tooltip #################################################
-function showTooltip(x, y, contents) {
-    $('<div id="tooltip">' + contents + '</div>').css({
-        top: y - 16,
-        left: x + 20
-    }).appendTo('#graph-wrapper').fadeIn();
+
 }

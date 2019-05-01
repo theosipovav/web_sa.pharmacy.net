@@ -20,8 +20,7 @@ try
     $pdoConnection = new PDO('mysql:host=localhost;dbname=sa.pharmacy.net', 'administrator', '611094');
     $pdoQuery = "SELECT so.id as `id`, so.name as `name`, ss.name as 'source', so.price as `price`, sl.date as `date` ";
     $pdoQuery .= "FROM scan_object as so, scan_source as ss, scan_log as sl ";
-    $pdoQuery .= "WHERE so.cource_id = ss.id AND so.log_id AND sl.id AND ss.id = $sSourceId AND sl.id = $sLogId ";
-    $pdoQuery .+ "ORDER BY `id`;";
+    $pdoQuery .= "WHERE so.cource_id = $sSourceId AND so.log_id = $sLogId AND so.cource_id = ss.id AND so.log_id = sl.id;";
     $pdoRes = $pdoConnection->query($pdoQuery);
     if ($pdoRes == false)
     {

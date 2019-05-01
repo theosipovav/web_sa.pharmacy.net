@@ -17,7 +17,7 @@ try
     $nLogId = $pdoResArray[0][0];
     $pdoQuery = "SELECT so.id as `id`, so.name as `name`, ss.name as 'source', so.price as `price`, sl.date as `date` ";
     $pdoQuery .= "FROM scan_object as so, scan_source as ss, scan_log as sl ";
-    $pdoQuery .= "WHERE so.cource_id = ss.id AND so.log_id AND sl.id AND sl.id = $nLogId ";
+    $pdoQuery .= "WHERE so.cource_id = ss.id AND so.log_id = sl.id AND sl.id = $nLogId ";
     $pdoRes = $pdoConnection->query($pdoQuery);
     if ($pdoRes == false)
     {
