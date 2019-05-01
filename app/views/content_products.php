@@ -55,14 +55,32 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-3 text-right">Дополнительная информация:</div>
-          <div class="col-md-3"><div id="DivObjectInfo"></div></div>
+          <div class="col-md-3">
+            <div id="DivObjectInfo"></div>
+          </div>
         </div>
         <hr>
-        <div class="row"><div class="col-md-6"><span id="DivObjectTextPrice">Последняя цена:</span></div>
+        <div class="row">
+          <div class="col-md-6"><span id="DivObjectTextPrice">Последняя цена:</span></div>
           <div class="col-md-6 text-right"><span id="DivObjectPrice"></span><span> руб.</span></div>
         </div>
         <hr />
-        <div class="row"><div class="col"><div id="DivObjectHistoryPrice"></div></div></div>
+        <div class="row">
+          <div class="col">
+            <h5 class="h5">Динамика изменения цен</h3>
+              <div id="graph-wrapper">
+                <div class="graph-info">
+                  <a href="#" id="bars"><span></span></a>
+                  <a href="#" id="lines" class="active"><span></span></a>
+                </div>
+                <div class="graph-container">
+                  <div id="graph-lines"></div>
+                  <div id="graph-bars"></div>
+                </div>
+              </div>
+
+          </div>
+        </div>
 
       </div>
       <div class="modal-footer">

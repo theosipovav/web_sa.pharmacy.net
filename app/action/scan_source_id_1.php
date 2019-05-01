@@ -1,4 +1,6 @@
 <?php
+ini_set('MAX_EXECUTION_TIME', '-1');
+
 require_once("../lib/parser/simple_html_dom.php");
 
 $nSourceId = 1;
@@ -28,32 +30,46 @@ $url_1 = 'https://366.ru/c/lekarstva/?page=';
 $url_2 = '&q=%3Apriority-desc';
 $aScanObjs = array();
 $isParserContent = TRUE;
-while ($isParserContent)
+$n = 0;
+$count = 0;
+while (true)
 {
-    @$site_parsing = file_get_html($url_1 . $n . $url_2);
+    $sUrlParsing = $url_1 . $n . $url_2;
+    @$site_parsing = file_get_html($sUrlParsing);
     $site_parsing_tables = $site_parsing -> find('div.c-prod-item-list div.c-prod-item');
     if ($site_parsing_tables == null)
     {
-        $isRead = false;
+        break;
+    }
+    else
+    {
+        $n++;
     }
     foreach($site_parsing_tables as $item) {
         $sName = trim($item->find('div.c-prod-item__title', 0)->innertext);
         $nPrice = $item -> find('span.b-price span meta', 0)->getAllAttributes()["content"];
-        $sInfo = "";
         @$company = $item -> find('div.c-prod-item__manufacturer div', 0)->innertext;
+        $sInfo = "";
         if (isset($company)) $sInfo .= "Компания: " . $company . "<br>";
         @$country = $item -> find('div.c-prod-item__manufacturer div', 1)->innertext;
         if (isset($country)) $sInfo .= "Страна: " . $country . "<br>";
         @$category = $item -> find('div.c-prod-item__manufacturer div', 2)->innertext;
         if (isset($category)) $sInfo .= "Категория: " . $category . "<br>";
-
+        $sName = str_replace("'", "*", $sName);
+        $nPrice = str_replace("'", "*", $nPrice);
+        $sInfo = str_replace("'", "*", $sInfo);
         $pdoQuery = "INSERT INTO `scan_object` (`id`, `cource_id`, `name`, `price`, `info`, `log_id`) VALUES (NULL, '$nSourceId', '$sName', '$nPrice', '$sInfo', '$nLogId')";
         $pdoRes = $pdoConnection->query($pdoQuery);
         if ($pdoRes == false)
         {
-            print("-1");
+            echo "Ошибка<hr>$pdoQuery";
             exit();
+        }
+        else
+        {
+            $count++;
         }
     }
 }
-print("1");
+echo "Выполнено !";
+echo "<h1>$count</h1";

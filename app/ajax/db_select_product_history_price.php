@@ -22,14 +22,20 @@ try
     {
         $pdoResArray = $pdoRes->fetchAll();
         $aResData = array();
+        $n=0;
         foreach ($pdoResArray as $item)
         {
-            array_push($aResData, array($item["date"], $item["price"]));
+            //array_push($aResData, array($item["date"], $item["price"]));
+            array_push($aResData, array($n, $item["price"]));
+            $n++;
         }
         $Res["status"] = "Success";
         $Res["data"] = $aResData;
     }
+
     print(json_encode($Res));
+
+
 }
 catch (PDOException $ex)
 {

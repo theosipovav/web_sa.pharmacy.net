@@ -153,3 +153,19 @@ nav {
   background: #333333;
   display: block;
 }
+#graph-wrapper {
+  width: 640px;
+  margin: 0 auto;
+  margin-bottom: 35px;
+}
+
+#graph-wrapper > .graph-info {
+  box-sizing: content-box;
+}
+#graph-wrapper > .graph-container {
+  box-sizing: content-box;
+}
+
+#tooltip{
+  z-index: 10000;
+}
