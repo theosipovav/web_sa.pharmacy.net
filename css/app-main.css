@@ -124,6 +124,7 @@ nav {
   text-align: left;
   cursor: default;
 }
+
 .usercard-value {
   font-size: 2rem;
   font-weight: 300;
@@ -137,4 +138,18 @@ nav {
   font-size: 2rem;
   font-weight: 300;
   line-height: 1.2;
+}
+
+#DivObjectTextPrice {
+  font-size: 2em;
+}
+
+#DivObjectPrice {
+  font-size: 2em;
+}
+
+.footer{
+  height: 100px;
+  background: #333333;
+  display: block;
 }

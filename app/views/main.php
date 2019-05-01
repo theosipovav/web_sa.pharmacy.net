@@ -9,22 +9,22 @@
   <link rel="stylesheet" type="text/css" href="css/bootstrap-table.min.css">
   <link rel="stylesheet" type="text/css" href="css/app-main.css">
   <link rel="stylesheet" type="text/css" href="css/app-products.css">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+  <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
   <title>Система по синтаксическому анализу открытых веб ресурсов</title>
 </head>
 
 <body>
   <?php echo $header; ?>
   <?php echo $content; ?>
+  <?php echo $footer; ?>
+
 
   <script src="js/jquery-3.2.1.min.js"></script>
   <script src="js/jquery-ui.min.js"></script>
   <script src="js/popper.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/app-main.js"></script>
-  <script src="js/app-products.js"></script>  
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-
+  <script type="text/javascript" charset="utf8" src="js/jquery.dataTables.js"></script>
 </body>
 
 </html>

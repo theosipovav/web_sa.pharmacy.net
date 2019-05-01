@@ -4,7 +4,7 @@ $Res = array
     "status"=>"Error",
     "data"=>""
 );
-if (!isset($_GET["id"]) || !isset($_GET["limit1"]) || !isset($_GET["limit2"]))
+if (!isset($_GET["source"]) || !isset($_GET["log"]))
 {
     $Res["status"] = "Error";
     $Res["data"] = "Не заданы входящие параметры";
@@ -12,15 +12,16 @@ if (!isset($_GET["id"]) || !isset($_GET["limit1"]) || !isset($_GET["limit2"]))
     exit();
 }
 $Res = array();
-
-$sLogId = $_GET["id"];
-$sLimitStart = $_GET["limit1"];
-$sLimitRange = $_GET["limit2"];
+$sSourceId = $_GET["source"];
+$sLogId = $_GET["log"];
 
 try 
 {
     $pdoConnection = new PDO('mysql:host=localhost;dbname=sa.pharmacy.net', 'administrator', '611094');
-    $pdoQuery = "SELECT `so`.`id`, (SELECT `ss`.`name` FROM `scan_source` as `ss` WHERE `ss`.`id` = `so`.`cource_id` LIMIT 1) as `source`, `so`.`name`, `so`.`price` FROM `scan_object` as `so` WHERE `so`.`log_id` = $sLogId ORDER BY id DESC LIMIT $sLimitStart, $sLimitRange";
+    $pdoQuery = "SELECT so.id as `id`, so.name as `name`, ss.name as 'source', so.price as `price`, sl.date as `date` ";
+    $pdoQuery .= "FROM scan_object as so, scan_source as ss, scan_log as sl ";
+    $pdoQuery .= "WHERE so.cource_id = ss.id AND so.log_id AND sl.id AND ss.id = $sSourceId AND sl.id = $sLogId ";
+    $pdoQuery .+ "ORDER BY `id`;";
     $pdoRes = $pdoConnection->query($pdoQuery);
     if ($pdoRes == false)
     {
@@ -37,9 +38,9 @@ try
             $sName = $item["name"];
             $sSource = $item["source"];
             $nPrice = $item["price"];
-            //$htmlButton = "<button class='btn btn-secondary btn-sm' onclick=\"fView('$nId')\">ИНФО</button>";
-            $htmlButton = "btn";
-            $aRow = array($sName,$sSource,$nPrice,$htmlButton);
+            $sDate = $item["date"];
+            $htmlButton = "<button class='btn btn-secondary btn-sm' data-toggle='modal' onclick=\"fnViewObjectInfo('$nId')\" data-target='#DivModalObjectInfo'>ИНФО</button>";
+            $aRow = array($sName,$sSource,$nPrice,$sDate,$htmlButton);
             array_push($aResData, $aRow);
         }
     }

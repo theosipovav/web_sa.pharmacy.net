@@ -32,6 +32,12 @@ switch ($controller) {
         ob_end_clean();
         break;
 }
+
+ob_start();
+include "app/views/footer.php";
+$footer = ob_get_contents();
+ob_end_clean();
+
 ob_start();
 include "app/views/main.php";
 $site = ob_get_contents();
