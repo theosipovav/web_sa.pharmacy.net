@@ -3,7 +3,7 @@ ini_set('MAX_EXECUTION_TIME', '-1');
 
 require_once("../lib/parser/simple_html_dom.php");
 
-$nSourceId = 1;
+$nSourceId = 2;
 $dateCurrent = date('Y-m-d H:i:s');
 $nLogId = 0;
 
@@ -26,14 +26,13 @@ if ($nLogId == "")
     exit();
 }
 
-$nPageNum = 0;
+$nPageNum = 1;
 $count = 0;
 while (true)
 {
-    $sUrlParsing = 'https://366.ru/c/lekarstva/?page=' . $nPageNum . '&q=%3Apriority-desc';
+    $sUrlParsing = 'https://apteka.ru/catalog/section/lekarstvennye-preparaty/?PAGEN_1=' . $nPageNum;
     @$site_parsing = file_get_html($sUrlParsing);
-    $site_parsing_tables = $site_parsing -> find('div.c-prod-item-list div.c-prod-item');
-    if ($site_parsing_tables == null)
+    if ($site_parsing == null)
     {
         break;
     }
@@ -41,16 +40,21 @@ while (true)
     {
         $nPageNum++;
     }
-    foreach($site_parsing_tables as $item) {
-        $sName = trim($item->find('div.c-prod-item__title', 0)->innertext);
-        $nPrice = $item -> find('span.b-price span meta', 0)->getAllAttributes()["content"];
-        @$company = $item -> find('div.c-prod-item__manufacturer div', 0)->innertext;
+    $htmlCatalogList = $site_parsing -> find('div.catalog-list', 0);
+    $aHtmlArticle = $htmlCatalogList-> find('article');
+    foreach ($aHtmlArticle as $article) {
+        $sName = $article->find('span.h2-style',0)->children(0)->plaintext;
+        $nPrice = $article->find('div.price',0)->find('span',0)->plaintext;
         $sInfo = "";
-        if (isset($company)) $sInfo .= "Компания: " . $company . "<br>";
-        @$country = $item -> find('div.c-prod-item__manufacturer div', 1)->innertext;
-        if (isset($country)) $sInfo .= "Страна: " . $country . "<br>";
-        @$category = $item -> find('div.c-prod-item__manufacturer div', 2)->innertext;
-        if (isset($category)) $sInfo .= "Категория: " . $category . "<br>";
+        @$sInfo_1 = $article->find('div.item_additional-info',0)->children(0)->plaintext;
+        if (isset($sInfo_1)) $sInfo .= trim($sInfo_1) . "<br>";
+        @$sInfo_2 = $article->find('div.item_additional-info',0)->children(1)->plaintext;
+        if (isset($sInfo_2)) $sInfo .= trim($sInfo_2) . "<br>";
+        @$sInfo_3 = $article->find('div.preparation',0)->plaintext;
+        if (isset($sInfo_3)) $sInfo .= trim($sInfo_3) . "<br>";
+        $sName = trim($sName);
+        $nPrice = trim($nPrice);
+        $sInfo = trim($sInfo);
         $sName = str_replace("'", "*", $sName);
         $nPrice = str_replace("'", "*", $nPrice);
         $sInfo = str_replace("'", "*", $sInfo);
