@@ -34,9 +34,33 @@ while (true)
 {
     $sUrlParsing = 'https://vseapteki.ru/catalog/39-lekarstva_i_bad/?page=' . $nPageNum;
     @$htmlPage = file_get_html($sUrlParsing);
+    $aHtmlArticle = $htmlPage-> find('article');
+    
+    foreach ($aHtmlArticle as $article) 
+    {
+        $sName = $article->find('header',0)->find('h3',0)->plaintext;
 
-    $aHtmlArticle = $htmlCatalogList-> find('article');
-    echo count($aHtmlArticle);
+        $nPrice = $article->find('footer',0)->find('div',0)->plaintext;
+        
+        
+        $sInfo = "";
+        @$sInfo_1 = $article->find('header',0)->find('div',0)->plaintext;
+        if (isset($sInfo_1)) $sInfo .= trim($sInfo_1) . "<br>";
+        @$sInfo_2 = $article->find('header',0)->find('div',1)->plaintext;
+        if (isset($sInfo_2)) $sInfo .= trim($sInfo_2) . "<br>";
+
+
+       
+
+
+        echo "$sName<br>Цена: $nPrice<br>$sInfo<hr>";
+    }
+
+
+
+
+
+
 
     exit();
     $htmlCatalogList = $htmlPage -> find('div.catalog-list', 0);
