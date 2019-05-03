@@ -1,26 +1,31 @@
 <?php
-$Res = array("status"=>"Error", "data"=>"");
-if (!isset($_GET["id"]) || !isset($_GET["limit1"]) || !isset($_GET["limit2"]))
+$Res = array
+(
+    "status"=>"Error",
+    "data"=>""
+);
+if (!isset($_GET["source"]) || !isset($_GET["log"]))
 {
     $Res["status"] = "Error";
     $Res["data"] = "Не заданы входящие параметры";
     print(json_encode($Res));
     exit();
 }
-
-$sLogId = $_GET["id"];
-$sLimitStart = $_GET["limit1"];
-$sLimitRange = $_GET["limit2"];
+$Res = array();
+$sSourceId = $_GET["source"];
+$sLogId = $_GET["log"];
 
 try 
 {
     $pdoConnection = new PDO('mysql:host=localhost;dbname=sa.pharmacy.net', 'administrator', '611094');
-    $pdoQuery = "SELECT so.id as `id`, ss.name as `source`, so.name as `name`, so.price as `price`, sl.date as `date` FROM scan_object as so, scan_source as ss, scan_log as sl WHERE so.cource_id = ss.id AND so.log_id = sl.id AND ss.id = $sLogId ORDER BY `date` DESC";
+    $pdoQuery = "SELECT so.id as `id`, so.name as `name`, ss.name as 'source', so.price as `price`, sl.date as `date` ";
+    $pdoQuery .= "FROM scan_object as so, scan_source as ss, scan_log as sl ";
+    $pdoQuery .= "WHERE so.cource_id = $sSourceId AND so.log_id = $sLogId AND so.cource_id = ss.id AND so.log_id = sl.id;";
     $pdoRes = $pdoConnection->query($pdoQuery);
     if ($pdoRes == false)
     {
         $Res["status"] = "Error";
-        $Res["data"] = "Произошла ошибка при выполнение запроса";
+        //$Res["data"] = "(code: 005) Произошла ошибка при выполнение авторизации";
     }
     else
     {
@@ -33,8 +38,9 @@ try
             $sSource = $item["source"];
             $nPrice = $item["price"];
             $sDate = $item["date"];
-            $htmlButton = "<button class='btn btn-secondary btn-sm' onclick=\"fView('$nId')\">ИНФО</button>";
-            $aRow = array($sName,$sSource,$nPrice,$sDate,$htmlButton);
+            $htmlLink = "<a href='?r=product/$nId' class='btn btn-secondary btn-sm'>Продробнее</a>";
+            
+            $aRow = array($sName,$sSource,$nPrice,$sDate,$htmlLink);
             array_push($aResData, $aRow);
         }
     }

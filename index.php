@@ -4,8 +4,20 @@ ob_start();
 include "app/views/header.php";
 $header = ob_get_contents();
 ob_end_clean();
-if (isset($_GET["r"])) $controller = $_GET["r"];
-else $controller = "main";
+if (isset($_GET["r"]))
+{
+    $explode = explode('/', $_GET["r"]);
+    $controller = $explode[0];
+    $params = array();
+    for ($i=1; $i < count($explode); $i++) { 
+        array_push($params, $explode[$i]);
+    }
+}
+else 
+{
+    $controller = "main";
+    $params = array();
+}
 switch ($controller) {
     case 'main':
         include "app/controllers/main.php";
@@ -19,6 +31,9 @@ switch ($controller) {
     case 'products':
         include "app/controllers/products.php";
         break;
+    case 'product':
+        include "app/controllers/product.php";
+        break;      
     case 'source':
         include "app/controllers/source.php";
         break;

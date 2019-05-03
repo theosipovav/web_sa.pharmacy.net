@@ -67,21 +67,16 @@
         <hr />
         <div class="row">
           <div class="col">
-            <h5 class="h5">Динамика изменения цен</h3>
-              <div id="graph-wrapper">
-                <div class="graph-info">
-                  <a href="#" id="bars"><span></span></a>
-                  <a href="#" id="lines" class="active"><span></span></a>
-                </div>
-                <div class="graph-container">
-                  <div id="graph-lines"></div>
-                  <div id="graph-bars"></div>
-                </div>
-              </div>
-
+            <h5 class="h5">Динамика изменения цен</h5>
           </div>
         </div>
-
+        <div class="row">
+          <div class="col">
+            <div class="demo-container" style="box-sizing: content-box;">
+              <div id="placeholder" class="demo-placeholder"></div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>

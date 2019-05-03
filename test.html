@@ -1,81 +1,86 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>Flot Examples: Categories</title>
-    <link href="http://www.flotcharts.org/flot/examples/examples.css" rel="stylesheet" type="text/css">
-    
-    <script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/source/jquery.canvaswrapper.js"></script>
-	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/source/jquery.colorhelpers.js"></script>
-	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/source/jquery.flot.js"></script>
-	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/source/jquery.flot.saturated.js"></script>
-	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/source/jquery.flot.browser.js"></script>
-	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/source/jquery.flot.drawSeries.js"></script>
-	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/source/jquery.flot.errorbars.js"></script>
-	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/source/jquery.flot.uiConstants.js"></script>
-	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/source/jquery.flot.logaxis.js"></script>
-	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/source/jquery.flot.symbol.js"></script>
-	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/source/jquery.flot.flatdata.js"></script>
-	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/source/jquery.flot.navigate.js"></script>
-	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/source/jquery.flot.fillbetween.js"></script>
-	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/source/jquery.flot.stack.js"></script>
-	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/source/jquery.flot.touchNavigate.js"></script>
-	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/source/jquery.flot.hover.js"></script>
-	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/source/jquery.flot.touch.js"></script>
-	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/source/jquery.flot.time.js"></script>
-	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/source/jquery.flot.axislabels.js"></script>
-	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/source/jquery.flot.selection.js"></script>
-	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/source/jquery.flot.composeImages.js"></script>
-	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/source/jquery.flot.legend.js"></script>
-	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/source/jquery.flot.categories.js"></script>
-	<script type="text/javascript">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-table.min.css">
+	<link rel="stylesheet" type="text/css" href="css/app-products.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
 
-	$(function() {
+	<link href="css/flotcharts/examples.css" rel="stylesheet" type="text/css">
 
-		var data = [ ["January", 10], ["February", 8], ["March", 4], ["April", 13], ["May", 17], ["June", 9] ];
-
-		$.plot("#placeholder", [ data ], {
-			series: {
-				bars: {
-					show: true,
-					barWidth: 0.6,
-					align: "center"
-				}
-			},
-			xaxis: {
-				mode: "categories",
-				showTicks: false,
-				gridLines: false
-			}
-		});
-
-		// Add the Flot version string to the footer
-
-		$("#footer").prepend("Flot " + $.plot.version + " &ndash; ");
-	});
-
-	</script>
+	<link rel="stylesheet" type="text/css" href="css/app-main.css">
+	<title>Система по синтаксическому анализу открытых веб ресурсов</title>
 </head>
+
 <body>
 
-	<div id="header">
-		<h2>Categories</h2>
+	<div class="demo-container">
+		<div id="placeholder" class="demo-placeholder"></div>
 	</div>
 
-	<div id="content">
 
-		<div class="demo-container">
-			<div id="placeholder" class="demo-placeholder"></div>
-		</div>
 
-		<p>With the categories plugin you can plot categories/textual data easily.</p>
+	<script type="text/javascript" charset="utf8" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="js/jquery-ui.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="js/popper.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="js/jquery.dataTables.js"></script>
 
-	</div>
 
-	<div id="footer">
-		Copyright &copy; 2007 - 2014 IOLA and Ole Laursen
-	</div>
+	<script language="javascript" type="text/javascript" src="js/flotcharts/jquery.canvaswrapper.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flotcharts/jquery.colorhelpers.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flotcharts/jquery.flot.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flotcharts/jquery.flot.saturated.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flotcharts/jquery.flot.browser.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flotcharts/jquery.flot.drawSeries.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flotcharts/jquery.flot.errorbars.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flotcharts/jquery.flot.uiConstants.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flotcharts/jquery.flot.logaxis.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flotcharts/jquery.flot.symbol.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flotcharts/jquery.flot.flatdata.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flotcharts/jquery.flot.navigate.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flotcharts/jquery.flot.fillbetween.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flotcharts/jquery.flot.stack.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flotcharts/jquery.flot.touchNavigate.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flotcharts/jquery.flot.hover.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flotcharts/jquery.flot.touch.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flotcharts/jquery.flot.time.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flotcharts/jquery.flot.axislabels.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flotcharts/jquery.flot.selection.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flotcharts/jquery.flot.composeImages.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flotcharts/jquery.flot.legend.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flotcharts/jquery.flot.categories.js"></script>
 
+
+
+	<script type="text/javascript" charset="utf8" src="js/app-main.js"></script>
+	<script type="text/javascript">
+		$(function () {
+
+			var data = [
+				["January", 15],
+				["February", 8],
+				["March", 4],
+				["April", 13],
+				["May", 17],
+				["June", 9]
+			];
+
+			$.plot("#placeholder", [data], {
+				series: {
+					bars: {
+						show: true,
+						barWidth: 0.6,
+						align: "center"
+					}
+				},
+				xaxis: {
+					mode: "categories",
+					showTicks: false,
+					gridLines: false
+				}
+			});
+		});
+	</script>
 </body>
-</html>
