@@ -8,7 +8,7 @@ $nObjectId = $params[0];
 $pdoConnection = new PDO('mysql:host=localhost;dbname=sa.pharmacy.net', 'administrator', '611094');
 $pdoQuery = "SELECT `so`.`name` AS `so.name`, `so`.`price` AS `so.price`, `so`.`info` AS `so.info`, `ss`.`name` AS `ss.name`, `sl`.`date` AS `sl.date`, `so`.`url` AS `so.url` ";
 $pdoQuery .= "FROM `scan_object` AS `so`, `scan_source` AS `ss`, `scan_log` AS `sl` ";
-$pdoQuery .= "WHERE `so`.`id` = $nObjectId AND `so`.`cource_id` = `ss`.`id` AND `so`.`log_id` = `sl`.`id`;";
+$pdoQuery .= "WHERE `so`.`id` = $nObjectId AND `so`.`source_id` = `ss`.`id` AND `so`.`log_id` = `sl`.`id`;";
 $pdoRes = $pdoConnection->query($pdoQuery);
 if ($pdoRes == false)
 {

@@ -23,16 +23,8 @@
     <div class="row">
       <div class="col">
         <table id="tableData" class="display">
-          <thead>
-            <tr>
-              <th>Наименование продукта</th>
-              <th>Наименование магазина</th>
-              <th>Цена (руб.)</th>
-              <th>Дата сканирования</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody></tbody>
+          <thead><tr><th>Наименование продукта</th><th>Наименование магазина</th><th>Цена (руб.)</th><th>Дата сканирования</th><th></th></tr></thead>
+          <tbody><?php print($htmlTableContent); ?></tbody>
         </table>
       </div>
     </div>

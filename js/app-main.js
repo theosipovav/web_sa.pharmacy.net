@@ -9,15 +9,12 @@ $(document).ready(function () {
     ///////////////////////////////////////////////
     // Инициализация компонента DataTable
     ///////////////////////////////////////////////
+    
     tableData = $('#tableData').DataTable({
-        //"paging": false,
-        //"ordering": false,
-        //"info": false,
         "language": {
             "url": "json/DataTables-Russian.json"
         }
     });
-    fnViewDataDefault();
 
     ///////////////////////////////////////////////
     // Инициализация компонента FlotCharts
@@ -140,28 +137,14 @@ $(document).ready(function () {
             }
         });
     });
+    /**
+     * Событие при клике по кнопке "Показать"
+     */
     $('#ButtonViewData').click(function (event) {
         var nSourceId = $("#SelectResourceName").val();
         var nLogId = $("#SelectScanDate").val();
-        var sUrl = 'app/ajax/db_select_products.php?source=' + nSourceId + '&log=' + nLogId;
-        tableData.clear().draw();
-        $('#ButtonViewData').html("Загрузка...")
-        $.ajax({
-            dataType: 'json',
-            url: sUrl,
-            success: function (res) {
-                if (res.status == "Success") {
-                    tableData.rows.add(res.data).draw();
-                } else {
-                    alert('Возникла ошибка: ' + res.data);
-                }
-                $('#ButtonViewData').html("Показать")
-            },
-            error: function (xhr, str) {
-                alert('Критическая ошибка: ' + str);
-                $('#ButtonViewData').html("Показать")
-            }
-        });
+        var sUrl = '?r=products/' + nSourceId + '/' + nLogId;
+        location.href = sUrl;
     });
 
 
