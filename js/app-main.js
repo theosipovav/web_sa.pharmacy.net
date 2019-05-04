@@ -257,7 +257,7 @@ function fnLoadObjectInfo(nObjectId) {
             alert('Критическая ошибка: ' + str);
         }
     });
-}
+}7
 
 function fnLoadDataChartsPrice(nObjectId) {
     
@@ -273,7 +273,6 @@ function fnLoadDataChartsPrice(nObjectId) {
                     "data": res.data
                 };
                 if (!alreadyFetched[flotchartsData.label]) {
-                    alert(flotchartsData.label + "\n" + flotchartsData.data);
                     alreadyFetched[flotchartsData.label] = true;
                     data.push(flotchartsData);
                 }
