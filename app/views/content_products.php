@@ -1,3 +1,4 @@
+<script defer type="text/javascript" charset="utf8" src="js/app-products.js"></script>
 <div class="content app-products">
   <div class="container">
     <hr />
@@ -22,10 +23,25 @@
     <hr />
     <div class="row">
       <div class="col">
-        <table id="tableData" class="display">
-          <thead><tr><th>Наименование продукта</th><th>Наименование магазина</th><th>Цена (руб.)</th><th>Дата сканирования</th><th></th></tr></thead>
-          <tbody><?php print($htmlTableContent); ?></tbody>
-        </table>
+        <div id="DivDivTableLoad" class="text-center">
+          <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        <div id="DivTableProducts">
+          <table id="TableProducts" class="display">
+            <thead>
+              <tr>
+                <th>Наименование продукта</th>
+                <th>Наименование магазина</th>
+                <th>Цена (руб.)</th>
+                <th>Дата сканирования</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody><?php print($htmlTableContent); ?></tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

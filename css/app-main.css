@@ -171,3 +171,8 @@ nav {
   position: fixed;
   height: auto;
 }
+
+
+#DivTableProducts{
+  display: none;
+}

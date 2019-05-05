@@ -1,88 +1,103 @@
 <?php
+/**
+ * PHP скрипт для парсинга сайта
+ * Идентификатор сканируемого ресура = 3
+ * 
+ */
+
+// Убираем максимальное время в секундах, в течение которого скрипт должен полностью загрузиться
 ini_set('MAX_EXECUTION_TIME', '-1');
 
+// Подключение библиотеки PHP Simple HTML DOM Parser
 require_once("../lib/parser/simple_html_dom.php");
 
-$nSourceId = 3;
-$dateCurrent = date('Y-m-d H:i:s');
-$nLogId = 0;
+$nSourceId = 3;                         // Идентификатор сканируемого ресура
+$dateCurrent = date('Y-m-d H:i:s');     // Текущая дата
+$nLogId = 0;                            // Идентификатор текущего (создаваемого) лога, для записи результата парсинга
+$nLogCount = 0;                         // Количество загруженных объектов (записей)
+$sLogMsg = "";                          // Результат парсинга
 
+// Подключение к базе данных MySql
 $pdoConnection = new PDO('mysql:host=localhost;dbname=sa.pharmacy.net', 'administrator', '611094');
+
+// Добавление строки в таблицу логов
 $pdoQuery = "INSERT INTO `scan_log` (`id`, `source_id`, `date`) VALUES (NULL, '$nSourceId', '$dateCurrent');";
 $pdoRes = $pdoConnection->query($pdoQuery);
-if ($pdoRes == false)
-{
+if ($pdoRes == false) {
+    // Критическая ошибка, операция прасинга прервана
     print("-1");
     exit();
 }
 
+// Получение идентификатора записи нового (созданного) лога
 $pdoQuery = "SELECT id FROM `scan_log` ORDER BY id DESC LIMIT 1";
 $pdoRes = $pdoConnection->query($pdoQuery);
 $pdoResArray = $pdoRes->fetchAll();
 $nLogId = $pdoResArray[0]["id"];
-if ($nLogId == "")
-{
+if ($nLogId == "") {
+    // Критическая ошибка, операция прасинга прервана
     print("-1");
     exit();
 }
+
+// Сканирование(парсинг) ресурса
 $nPageNum = 1;
-$count = 0;
-while (true)
-{
+$nLogCount = 0;
+while (true) {
+    // Динамическая генерация адреса ресурса, с учетом нумерации страниц
     $sUrlParsing = 'https://vseapteki.ru/catalog/39-lekarstva_i_bad/?page=' . $nPageNum;
+
+    // Чтениеи и сканирование содержимого страницы
     @$htmlPage = file_get_html($sUrlParsing);
-    if ($htmlPage == null)
-    {
+    if ($htmlPage == null) {
         break;
-    }
-    else
-    {
+    } else {
         $nPageNum++;
     }
-    $aHtmlArticle = $htmlPage-> find('article');
-    foreach ($aHtmlArticle as $article) 
-    {
-        @$sName = $article->find('header',0)->find('h3',0)->plaintext;
-        if (isset($sName))
-        {
-            $sName = trim($sName);
-            $sName = str_replace("'", "*", $sName);
-        }
-        else
-        {
+    $aHtmlArticle = $htmlPage->find('article');
+    foreach ($aHtmlArticle as $article) {
+        // Получение наименование найденного объекта
+        @$sObjectName = $article->find('header', 0)->find('h3', 0)->plaintext;
+        if (isset($sObjectName)) {
+            $sObjectName = trim($sObjectName);
+            $sObjectName = str_replace("'", "*", $sObjectName);
+        } else {
             continue;
         }
-        @$nPrice = $article->find('footer',0)->find('div',0)->plaintext;
-        if (isset($nPrice))
-        {
-            $nPrice = preg_replace("/[^a-z\d]/",' ', $nPrice);
-            $nPrice = trim($nPrice);
-            $nPrice = str_replace("'", "*", $nPrice);
-        }
-        else
-        {
-            continue;
-        }
-        $sInfo = "";
-        @$sInfo_1 = $article->find('header',0)->find('div',0)->plaintext;
-        if (isset($sInfo_1)) $sInfo .= trim($sInfo_1) . "<br>";
-        @$sInfo_2 = $article->find('header',0)->find('div',1)->plaintext;
-        if (isset($sInfo_2)) $sInfo .= trim($sInfo_2) . "<br>";
-        $sInfo = trim($sInfo);
-        $sInfo = str_replace("'", "*", $sInfo);
 
-        $pdoQuery = "INSERT INTO `scan_object` (`id`, `cource_id`, `name`, `price`, `info`, `log_id`) VALUES (NULL, '$nSourceId', '$sName', '$nPrice', '$sInfo', '$nLogId')";
-        $pdoRes = $pdoConnection->query($pdoQuery);
-        if ($pdoRes == false)
+        // Получение цены найденного объекта
+        @$nObjectPrice = $article->find('footer', 0)->find('div', 0)->plaintext;
+        if (isset($nObjectPrice)) {
+            $nObjectPrice = preg_replace("/[^a-z\d]/", ' ', $nObjectPrice);
+            $nObjectPrice = trim($nObjectPrice);
+            $nObjectPrice = str_replace("'", "*", $nObjectPrice);
+        } else {
+            continue;
+        }
+
+        // Получение дополнительной информации найденного объекта
+        $sObjectInfo = "";
+        @$substr = $article->find('header', 0)->find('div', 0)->plaintext;
+        if (isset($substr))
         {
+            $sObjectInfo .= trim($substr) . "<br>";
+        }
+        @$substr = $article->find('header', 0)->find('div', 1)->plaintext;
+        if (isset($substr))
+        {
+            $sObjectInfo .= trim($substr) . "<br>";
+        }
+        $sObjectInfo = trim($sObjectInfo);
+        $sObjectInfo = str_replace("'", "*", $sObjectInfo);
+
+        $pdoQuery = "INSERT INTO `scan_object` (`id`, `cource_id`, `name`, `price`, `info`, `log_id`) VALUES (NULL, '$nSourceId', '$sObjectName', '$nObjectPrice', '$sObjectInfo', '$nLogId')";
+        $pdoRes = $pdoConnection->query($pdoQuery);
+        if ($pdoRes == false) {
             print("-1");
             exit();
+        } else {
+            $nLogCount++;
         }
-        else
-        {
-            $count++;
-        }
-        
     }
 }
-print($count);  
+print($nLogCount);

@@ -1,114 +1,128 @@
 <?php
+/**
+ * PHP скрипт для парсинга сайта
+ * Идентификатор сканируемого ресура = 1
+ * 
+ */
+
+// Убираем максимальное время в секундах, в течение которого скрипт должен полностью загрузиться
 ini_set('MAX_EXECUTION_TIME', '-1');
+
+// Подключение библиотеки PHP Simple HTML DOM Parser
 require_once("../lib/parser/simple_html_dom.php");
-$nSourceId = 1;
-$dateCurrent = date('Y-m-d H:i:s');
-$nLogId = 0;
-$nLogCount = 0;
-$sLogMsg = "";
+
+$nSourceId = 1;                         // Идентификатор сканируемого ресура
+$dateCurrent = date('Y-m-d H:i:s');     // Текущая дата
+$nLogId = 0;                            // Идентификатор текущего (создаваемого) лога, для записи результата парсинга
+$nLogCount = 0;                         // Количество загруженных объектов (записей)
+$sLogMsg = "";                          // Результат парсинга
+
+// Подключение к базе данных MySql
 $pdoConnection = new PDO('mysql:host=localhost;dbname=sa.pharmacy.net', 'administrator', '611094');
+
+// Добавление строки в таблицу логов
 $pdoQuery = "INSERT INTO `scan_log` (`id`, `source_id`, `date`) VALUES (NULL, '$nSourceId', '$dateCurrent');";
 $pdoRes = $pdoConnection->query($pdoQuery);
-if ($pdoRes == false)
-{
-    $sLogMsg = "Ошибка при обработке запроса: " . $pdoQuery;
+if ($pdoRes == false) {
+    // Критическая ошибка, операция прасинга прервана
     print("-1");
     exit();
 }
+
+// Получение идентификатора записи нового (созданного) лога
 $pdoQuery = "SELECT id FROM `scan_log` ORDER BY id DESC LIMIT 1";
 $pdoRes = $pdoConnection->query($pdoQuery);
 $pdoResArray = $pdoRes->fetchAll();
 $nLogId = $pdoResArray[0]["id"];
-if ($nLogId == "")
-{
-    $sLogMsg = "Ошибка при обработке запроса: " . $pdoQuery;
+if ($nLogId == "") {
+    // Критическая ошибка, операция прасинга прервана
     print("-1");
     exit();
 }
+
+// Сканирование(парсинг) ресурса
 $nPageNum = 0;
 $nLogCount = 0;
-while (true)
-{
+while (true) {
+    // Динамическая генерация адреса ресурса, с учетом нумерации страниц
     $sUrlParsing = 'https://366.ru/c/lekarstva/?page=' . $nPageNum . '&q=%3Apriority-desc';
+
+    // Чтениеи и сканирование содержимого страницы
     @$htmlPage = file_get_html($sUrlParsing);
-    if ($htmlPage == null)
-    {
+    if ($htmlPage == null) {
         break;
     }
-    $htmlPage_tables = $htmlPage -> find('div.c-prod-item-list div.c-prod-item');
-    if ($htmlPage_tables == null)
-    {
+    $htmlPage_tables = $htmlPage->find('div.c-prod-item-list div.c-prod-item');
+    if ($htmlPage_tables == null) {
         break;
-    }
-    else
-    {
+    } else {
         $nPageNum++;
     }
-    foreach($htmlPage_tables as $item) {
-        $sObjectName = $item->find('div.c-prod-item__title', 0)->innertext;
-        if (isset($sObjectName))
-        {
+    foreach ($htmlPage_tables as $item) {
+        // Получение наименование найденного объекта
+        @$sObjectName = $item->find('div.c-prod-item__title', 0)->innertext;
+        if (isset($sObjectName)) {
             $sObjectName = trim($sObjectName);
             $sObjectName = str_replace("'", "*", $sObjectName);
-        }
-        else
-        {
+        } else {
             continue;
         }
+
+        // Получение цены найденного объекта
         @$nObjectPrice = $item->find('span.b-price span meta', 0)->getAllAttributes()["content"];
-        if (isset($nObjectPrice))
-        {
-            $nObjectPrice = preg_replace("/[^a-z\d]/",' ', $nObjectPrice);
+        if (isset($nObjectPrice)) {
+            $nObjectPrice = preg_replace("/[^a-z\d]/", ' ', $nObjectPrice);
             $nObjectPrice = trim($nObjectPrice);
             $nObjectPrice = str_replace("'", "*", $nObjectPrice);
-        }
-        else
-        {
+        } else {
             continue;
         }
+
+        // Получение дополнительной информации найденного объекта
         $sObjectInfo = "";
-        @$substr = $item -> find('div.c-prod-item__manufacturer div', 0)->innertext;
-        if (isset($substr))
-        {
+        @$substr = $item->find('div.c-prod-item__manufacturer div', 0)->innertext;
+        if (isset($substr)) {
+            $substr = trim($substr);
             $sObjectInfo .= "Компания: " . $substr . "<br>";
             $substr = null;
         }
-        @$substr = $item -> find('div.c-prod-item__manufacturer div', 1)->innertext;
-        if (isset($substr))
-        {
+        @$substr = $item->find('div.c-prod-item__manufacturer div', 1)->innertext;
+        if (isset($substr)) {
+            $substr = trim($substr);
             $sObjectInfo .= "Страна: " . $substr . "<br>";
             $substr = null;
         }
-        @$substr = $item -> find('div.c-prod-item__manufacturer div', 2)->innertext;
-        if (isset($substr))
-        {
+        @$substr = $item->find('div.c-prod-item__manufacturer div', 2)->innertext;
+        if (isset($substr)) {
+            $substr = trim($substr);
             $sObjectInfo .= "Категория: " . $substr . "<br>";
             $substr = null;
         }
         $sObjectInfo = str_replace("'", "*", $sObjectInfo);
 
+        // Добавление строки в таблицу отсканируемых объектов
         $pdoQuery = "INSERT INTO `scan_object` (`id`, `cource_id`, `name`, `price`, `info`, `log_id`, `url`) VALUES (NULL, '$nSourceId', '$sObjectName', '$nObjectPrice', '$sObjectInfo', '$nLogId', '$sUrlParsing')";
         $pdoRes = $pdoConnection->query($pdoQuery);
-        if ($pdoRes == false)
-        {
-            $sLogMsg = "Ошибка при обработке запроса: " . $pdoQuery;
+        if ($pdoRes == false) {
+            $sLogMsg = "Ошибка при обработке запроса: " . $pdoQuery . "<br>";
             continue;
-        }
-        else
-        {
+        } else {
             $nLogCount++;
         }
     }
 }
-if ($sLogMsg == "")
-{
+
+// Обновление данных(количество загруженных объектов и результат парсинга) в созданной ранее записи лога 
+if ($sLogMsg == "") {
     $sLogMsg = "Ошибок нет";
 }
 $pdoQuery = "UPDATE `scan_log` SET `count` = '$nLogCount', `msg` = '$sLogMsg' WHERE `scan_log`.`id` = $nLogId";
 $pdoRes = $pdoConnection->query($pdoQuery);
-if ($pdoRes == false)
-{
+if ($pdoRes == false) {
+    // Критическая ошибка, операция прасинга прервана
     print("-1");
     exit();
 }
+
+// Вывод результата(количество загруженных объектов)
 print($nLogCount);

@@ -4,17 +4,9 @@ var data = [];
 var options = null;
 
 $(document).ready(function () {
+
     
 
-    ///////////////////////////////////////////////
-    // Инициализация компонента DataTable
-    ///////////////////////////////////////////////
-    
-    tableData = $('#tableData').DataTable({
-        "language": {
-            "url": "json/DataTables-Russian.json"
-        }
-    });
 
     ///////////////////////////////////////////////
     // Инициализация компонента FlotCharts
@@ -34,10 +26,10 @@ $(document).ready(function () {
         }
     };
 
-    
 
-    $.plot("#placeholder", data, options);
-    
+
+    //$.plot("#placeholder", data, options);
+
 
 
 
@@ -149,7 +141,7 @@ $(document).ready(function () {
 
 
 
-    
+
 
 });
 
@@ -170,6 +162,7 @@ function fnViewProductsForSource(nSourceId, sSourceName, nLimitStart, nLimitRang
         }
     });
 }
+
 function fnVeiwScanDate() {
     var nSourceId = $("#SelectResourceName").val();
     $.ajax({
@@ -218,6 +211,7 @@ function fnViewObjectInfo(nObjectId) {
     fnLoadObjectInfo(nObjectId);
     fnLoadDataChartsPrice(nObjectId);
 }
+
 function fnLoadObjectInfo(nObjectId) {
     $.ajax({
         dataType: 'json',
@@ -240,10 +234,11 @@ function fnLoadObjectInfo(nObjectId) {
             alert('Критическая ошибка: ' + str);
         }
     });
-}7
+}
+7
 
 function fnLoadDataChartsPrice(nObjectId) {
-    
+
     var urlGenJson = 'app/ajax/db_select_product_history_price.php?name=' + nObjectId;
     $.ajax({
         dataType: 'json',
@@ -263,8 +258,7 @@ function fnLoadDataChartsPrice(nObjectId) {
                 $.plot("#placeholder", data, options);
 
 
-            }
-            else{
+            } else {
                 alert('Возникла ошибка: ' + res.data);
             }
         },
@@ -275,21 +269,21 @@ function fnLoadDataChartsPrice(nObjectId) {
     });
 
 
-/*
-    var urlGenJson = "http://www.flotcharts.org/flot/examples/ajax/data-japan-gdp-growth.json";
-    function onDataReceived(series) {
-        alert(series.label);
-        if (!alreadyFetched[series.label]) {
-            alreadyFetched[series.label] = true;
-            data.push(series);
+    /*
+        var urlGenJson = "http://www.flotcharts.org/flot/examples/ajax/data-japan-gdp-growth.json";
+        function onDataReceived(series) {
+            alert(series.label);
+            if (!alreadyFetched[series.label]) {
+                alreadyFetched[series.label] = true;
+                data.push(series);
+            }
+            $.plot("#placeholder", data, options);
         }
-        $.plot("#placeholder", data, options);
-    }
-    $.ajax({
-        url: urlGenJson,
-        type: "GET",
-        dataType: "json",
-        success: onDataReceived
-    });
-*/
+        $.ajax({
+            url: urlGenJson,
+            type: "GET",
+            dataType: "json",
+            success: onDataReceived
+        });
+    */
 }

@@ -1,25 +1,18 @@
-$(document).ready( function () {
-    var data = [
-        [
-            "Tiger Nixon",
-            "System Architect",
-            "Edinburgh",
-            "5421",
-            "2011/04/25",
-            "$3,120"
-        ],
-        [
-            "Garrett Winters",
-            "Director",
-            "Edinburgh",
-            "8422",
-            "2011/07/25",
-            "$5,300"
-        ]
-    ]
+$(document).ready(function () {
+    ///////////////////////////////////////////////
+    // Инициализация компонента DataTable
+    ///////////////////////////////////////////////
+    tableData = $('#TableProducts').DataTable({
+        "language": {
+            "url": "json/DataTables-Russian.json"
+        }
+    });
 
 
-    $('#TableProducts').DataTable( {
-        data: data
-    } );
-} );
+});
+
+window.onload = function()
+{
+    $("#DivDivTableLoad").css("display", "none");
+    $("#DivTableProducts").css("display", "block");
+}
