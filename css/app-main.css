@@ -72,25 +72,13 @@ nav {
 .app-home {
   background: #333;
   color: #fff;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   padding-top: 100px;
 }
 
-.app-listres {}
 
 .app-about {
   background: #333;
   color: #fff;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding-top: 100px;
 }
 
 

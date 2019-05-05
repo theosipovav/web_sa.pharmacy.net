@@ -15,6 +15,7 @@ $nSourceId = 1;                         // Идентификатор скани
 $dateCurrent = date('Y-m-d H:i:s');     // Текущая дата
 $nLogId = 0;                            // Идентификатор текущего (создаваемого) лога, для записи результата парсинга
 $nLogCount = 0;                         // Количество загруженных объектов (записей)
+$nLogMissedCount = 0;                   // Количество пропущенных объектов (записей)
 $sLogMsg = "";                          // Результат парсинга
 
 // Подключение к базе данных MySql
@@ -64,6 +65,7 @@ while (true) {
         if (isset($sObjectName)) {
             $sObjectName = trim($sObjectName);
             $sObjectName = str_replace("'", "*", $sObjectName);
+            $sObjectName = str_replace("\\", "|", $sObjectName);
         } else {
             continue;
         }
@@ -71,9 +73,11 @@ while (true) {
         // Получение цены найденного объекта
         @$nObjectPrice = $item->find('span.b-price span meta', 0)->getAllAttributes()["content"];
         if (isset($nObjectPrice)) {
-            $nObjectPrice = preg_replace("/[^a-z\d]/", ' ', $nObjectPrice);
+            $nObjectPrice = preg_replace("/[^0123456789.,]/", '', $nObjectPrice);
             $nObjectPrice = trim($nObjectPrice);
+            $nObjectPrice = trim($nObjectPrice, ".");
             $nObjectPrice = str_replace("'", "*", $nObjectPrice);
+            $nObjectPrice = str_replace("\\", "|", $nObjectPrice);
         } else {
             continue;
         }
@@ -99,12 +103,14 @@ while (true) {
             $substr = null;
         }
         $sObjectInfo = str_replace("'", "*", $sObjectInfo);
+        $sObjectInfo = str_replace("\\", "|", $sObjectInfo);
 
         // Добавление строки в таблицу отсканируемых объектов
-        $pdoQuery = "INSERT INTO `scan_object` (`id`, `cource_id`, `name`, `price`, `info`, `log_id`, `url`) VALUES (NULL, '$nSourceId', '$sObjectName', '$nObjectPrice', '$sObjectInfo', '$nLogId', '$sUrlParsing')";
+        $pdoQuery = "INSERT INTO `scan_object` (`id`, `source_id`, `name`, `price`, `info`, `log_id`, `url`) VALUES (NULL, '$nSourceId', '$sObjectName', '$nObjectPrice', '$sObjectInfo', '$nLogId', '$sUrlParsing')";
         $pdoRes = $pdoConnection->query($pdoQuery);
         if ($pdoRes == false) {
-            $sLogMsg = "Ошибка при обработке запроса: " . $pdoQuery . "<br>";
+            $sLogMsg = "Ошибка при добавление строки в таблицу отсканированного объекта: $sObjectName ($sUrlParsing).\n";
+            $nLogMissedCount++;
             continue;
         } else {
             $nLogCount++;
@@ -116,7 +122,7 @@ while (true) {
 if ($sLogMsg == "") {
     $sLogMsg = "Ошибок нет";
 }
-$pdoQuery = "UPDATE `scan_log` SET `count` = '$nLogCount', `msg` = '$sLogMsg' WHERE `scan_log`.`id` = $nLogId";
+$pdoQuery = "UPDATE `scan_log` SET `count` = '$nLogCount', `missed` = '$nLogMissedCount', `msg` = '$sLogMsg' WHERE `scan_log`.`id` = $nLogId";
 $pdoRes = $pdoConnection->query($pdoQuery);
 if ($pdoRes == false) {
     // Критическая ошибка, операция прасинга прервана

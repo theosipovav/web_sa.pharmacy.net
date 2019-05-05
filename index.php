@@ -4,17 +4,19 @@ ob_start();
 include "app/views/header.php";
 $header = ob_get_contents();
 ob_end_clean();
-if (isset($_GET["r"]))
-{
+$isAuth = FALSE;
+if (isset($_SESSION["id"]) && isset($_SESSION["login"]) && isset($_SESSION["name"])) {
+    $isAuth = TRUE;
+}
+
+if (isset($_GET["r"])) {
     $explode = explode('/', $_GET["r"]);
     $controller = $explode[0];
     $params = array();
-    for ($i=1; $i < count($explode); $i++) { 
+    for ($i = 1; $i < count($explode); $i++) {
         array_push($params, $explode[$i]);
     }
-}
-else 
-{
+} else {
     $controller = "main";
     $params = array();
 }
@@ -29,17 +31,38 @@ switch ($controller) {
         include "app/controllers/registration.php";
         break;
     case 'products':
-        include "app/controllers/products.php";
+        if ($isAuth) {
+            include "app/controllers/products.php";
+        } else {
+            ob_start();
+            include "app/views/contetn_warning_auth.php";
+            $content = ob_get_contents();
+            ob_end_clean();
+        }
         break;
     case 'product':
-        include "app/controllers/product.php";
-        break;      
+        if ($isAuth) {
+            include "app/controllers/product.php";
+        } else {
+            ob_start();
+            include "app/views/contetn_warning_auth.php";
+            $content = ob_get_contents();
+            ob_end_clean();
+        }
+        break;
     case 'source':
-        include "app/controllers/source.php";
+        if ($isAuth) {
+            include "app/controllers/source.php";
+        } else {
+            ob_start();
+            include "app/views/contetn_warning_auth.php";
+            $content = ob_get_contents();
+            ob_end_clean();
+        }
         break;
     case 'about':
         include "app/controllers/about.php";
-        break;    
+        break;
     default:
         ob_start();
         include "app/views/content_error404.php";

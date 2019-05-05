@@ -3,21 +3,24 @@
   <div class="container">
     <hr />
     <div class="row">
-      <div class="col-md-4">
-        Сканируемый ресурс:
-        <select id="SelectResourceName" class="custom-select" onchange="fnVeiwScanDate()">
-          <option selected>Выберите сканируемый ресурс</option>
-          <?php print($htmlOptionSelectSelectResourceName); ?>
-        </select>
+      <div class="col-md-8">
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+            Сканируемый ресурс:
+              <select id="SelectResourceName" class="custom-select" onchange="fnVeiwScanDate()">
+                <?php print($htmlOptionSelectSelectResourceName); ?>
+              </select>
+            </div>
+            <div class="form-group col-md-6">
+            Дата сканирования:
+              <select id="SelectScanDate" class="custom-select"></select>
+            </div>
+          </div>
+        </form>
       </div>
-      <div class="col-md-4">
-        Дата сканирования:
-        <select id="SelectScanDate" class="custom-select">
-
-        </select>
-      </div>
-      <div class="col-md-4 text-right align-self-end">
-        <button id="ButtonViewData" class="btn btn-success">Показать</button>
+      <div class="col-md-4 text-right align-self-center">
+        <button id="ButtonViewData" class="btn btn-success btn-lg">Показать</button>
       </div>
     </div>
     <hr />

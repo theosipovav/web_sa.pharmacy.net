@@ -1,3 +1,5 @@
+var tableData = null;
+
 $(document).ready(function () {
     ///////////////////////////////////////////////
     // Инициализация компонента DataTable
@@ -7,8 +9,7 @@ $(document).ready(function () {
             "url": "json/DataTables-Russian.json"
         }
     });
-
-
+    fnVeiwScanDate();
 });
 
 window.onload = function()

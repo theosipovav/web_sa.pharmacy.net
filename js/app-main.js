@@ -1,50 +1,7 @@
-var tableData = null;
-var alreadyFetched = {};
-var data = [];
-var options = null;
-
 $(document).ready(function () {
-
-    
-
-
-    ///////////////////////////////////////////////
-    // Инициализация компонента FlotCharts
-    ///////////////////////////////////////////////
-    options = {
-        series: {
-            bars: {
-                show: true,
-                barWidth: 0.6,
-                align: "center"
-            }
-        },
-        xaxis: {
-            mode: "categories",
-            showTicks: false,
-            gridLines: false
-        }
-    };
-
-
-
-    //$.plot("#placeholder", data, options);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * Событие при клике по кнопке "Регистрация"
+     */
     $('#ButonRegistration').click(function (event) {
         var FormRegistration = $('#FormRegistration').serialize();
         var InputPassword = $('#InputPassword');
@@ -71,6 +28,9 @@ $(document).ready(function () {
             $('#InputRepeatPassword').addClass("is-invalid");
         }
     });
+    /**
+     * Событие при клике по кнопке "Войти"
+     */
     $('#ButtonAuth').click(function (event) {
         var FormLogin = $('#FormLogin').serialize();
         $.ajax({
@@ -90,6 +50,9 @@ $(document).ready(function () {
             }
         });
     });
+    /**
+     * Событие при клике по кнопке "Выйти"
+     */
     $('#ButtonLogout').click(function (event) {
         $.ajax({
             dataType: 'json',
@@ -106,6 +69,9 @@ $(document).ready(function () {
             }
         });
     });
+    /**
+     * Событие при клике по кнопке "ИМЯ_ТЕКУЩЕГО_ПОЛЬЗОВАТЕЛЯ"
+     */
     $('#ButtonUserInfo').click(function (event) {
         var SpanUserName = $('#SpanUserName');
         var SpanLogin = $('#SpanLogin');
@@ -138,31 +104,11 @@ $(document).ready(function () {
         var sUrl = '?r=products/' + nSourceId + '/' + nLogId;
         location.href = sUrl;
     });
-
-
-
-
-
 });
-
-function fnViewProductsForSource(nSourceId, sSourceName, nLimitStart, nLimitRange) {
-    $.ajax({
-        dataType: 'json',
-        url: 'app/ajax/db_select_pdroducts_for_source.php?id=' + nSourceId + '&limit1=' + nLimitStart + '&limit2=' + nLimitRange,
-        success: function (res) {
-            if (res.status == "Success") {
-                tableData.clear().draw();
-                tableData.rows.add(res.data).draw();
-            } else {
-                alert('Возникла ошибка: ' + res.data);
-            }
-        },
-        error: function (xhr, str) {
-            alert('Критическая ошибка: ' + str);
-        }
-    });
-}
-
+/**
+ * Получение данных из таблицы логов по идентификатору сканируемого ранее ресурса, 
+ * и заполнение элемента <select id="SelectScanDate"></select> полученными данным 
+ */
 function fnVeiwScanDate() {
     var nSourceId = $("#SelectResourceName").val();
     $.ajax({
@@ -188,30 +134,20 @@ function fnVeiwScanDate() {
 
 
 
-function fnViewDataDefault() {
-    $.ajax({
-        dataType: 'json',
-        url: 'app/ajax/db_select_products_default.php',
-        success: function (res) {
-            if (res.status == "Success") {
-                tableData.clear().draw();
-                tableData.rows.add(res.data).draw();
-            } else {
-                alert('Возникла ошибка: ' + res.data);
-            }
-        },
-        error: function (xhr, str) {
-            alert('Критическая ошибка: ' + str);
-        }
-    });
-}
 
-
+/**
+ * Получение хронологии изменения цены у продукта,
+ * заполнение графика "Динамика изменения цены"
+ * @param  {int} nObjectId Идентификатор продукта
+ */
 function fnViewObjectInfo(nObjectId) {
     fnLoadObjectInfo(nObjectId);
     fnLoadDataChartsPrice(nObjectId);
 }
-
+/**
+ * Получение данных о продукте и заполнение HTML элементов полученными данными
+ * @param  {int} nObjectId Идентификатор продукта
+ */
 function fnLoadObjectInfo(nObjectId) {
     $.ajax({
         dataType: 'json',
@@ -236,54 +172,3 @@ function fnLoadObjectInfo(nObjectId) {
     });
 }
 7
-
-function fnLoadDataChartsPrice(nObjectId) {
-
-    var urlGenJson = 'app/ajax/db_select_product_history_price.php?name=' + nObjectId;
-    $.ajax({
-        dataType: 'json',
-        type: "GET",
-        url: urlGenJson,
-        success: function (res) {
-            if (res.status == "Success") {
-                var flotchartsData = {
-                    "label": "Product",
-                    "data": res.data
-                };
-                if (!alreadyFetched[flotchartsData.label]) {
-                    alreadyFetched[flotchartsData.label] = true;
-                    data.push(flotchartsData);
-                }
-
-                $.plot("#placeholder", data, options);
-
-
-            } else {
-                alert('Возникла ошибка: ' + res.data);
-            }
-        },
-        error: function (xhr, str) {
-            alert('Критическая ошибка: ' + str);
-            isError = true;
-        }
-    });
-
-
-    /*
-        var urlGenJson = "http://www.flotcharts.org/flot/examples/ajax/data-japan-gdp-growth.json";
-        function onDataReceived(series) {
-            alert(series.label);
-            if (!alreadyFetched[series.label]) {
-                alreadyFetched[series.label] = true;
-                data.push(series);
-            }
-            $.plot("#placeholder", data, options);
-        }
-        $.ajax({
-            url: urlGenJson,
-            type: "GET",
-            dataType: "json",
-            success: onDataReceived
-        });
-    */
-}
