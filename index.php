@@ -1,9 +1,6 @@
 <?php
 session_start();
-ob_start();
-include "app/views/header.php";
-$header = ob_get_contents();
-ob_end_clean();
+
 $isAuth = FALSE;
 if (isset($_SESSION["id"]) && isset($_SESSION["login"]) && isset($_SESSION["name"])) {
     $isAuth = TRUE;
@@ -20,6 +17,12 @@ if (isset($_GET["r"])) {
     $controller = "main";
     $params = array();
 }
+
+ob_start();
+include "app/views/header.php";
+$header = ob_get_contents();
+ob_end_clean();
+
 switch ($controller) {
     case 'main':
         include "app/controllers/main.php";

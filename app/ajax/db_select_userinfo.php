@@ -29,9 +29,8 @@ try
             $pdoResArray = $pdoRes->fetchAll();
             if (count($pdoResArray) == 0)
             {
-                $Res["status"] = "Error";
-                $Res["data"] = "(code: 006) Произошла ошибка при выполнение авторизации";
-                $Res["data"] = $pdoQuery;
+                $Res["status"] = "Success";
+                $Res["data"] = "-1";
 
             }
             else

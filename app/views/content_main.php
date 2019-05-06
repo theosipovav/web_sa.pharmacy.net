@@ -2,9 +2,11 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1 class="h1"><span style="color: #ffa300;">С</span>истема по <span
-                        style="color: #ffa300;">с</span>интаксическому <span style="color: #ffa300;">а</span>нализу
-                    открытых веб ресурсов</h1>
+                <h1 class=" display-4">
+                    <span style="color: #ffa300;">С</span>истема по <br>
+                    <span style="color: #ffa300;">с</span>интаксическому <br> 
+                    <span style="color: #ffa300;">а</span>нализу открытых веб ресурсов
+                </h1>
             </div>
         </div>
     </div>
@@ -47,11 +49,11 @@
             </div>
         </div>
     </div>
-    <hr>
     <div class="container">
+        <hr>
         <div class="row">
             <div class="col">
-                <div class="card bg-transparent">
+                <div class="card bg-info">
                     <div class="card-header">
                         Синтаксический анализ
                     </div>
@@ -62,7 +64,8 @@
                                 естественного или формального языка с его формальной грамматикой. Результатом обычно
                                 является дерево разбора (синтаксическое дерево). Обычно применяется совместно с
                                 лексическим анализом.</p>
-                            <footer class="blockquote-footer">Википедия. <cite title="Source Title">"Синтаксический анализ"</cite></footer>
+                            <footer class="blockquote-footer text-white">Википедия. <cite
+                                    title="Source Title">"Синтаксический анализ"</cite></footer>
                         </blockquote>
                     </div>
                 </div>

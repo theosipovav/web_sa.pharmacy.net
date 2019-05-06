@@ -1,6 +1,7 @@
 html,
 body {
   color: #000;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
 }
 
 nav {
@@ -16,54 +17,26 @@ nav {
 .app-authentication {
   background: #333;
   color: #fff;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   padding-top: 100px;
 }
 
-.app-authentication .form-signin {
+.app-authentication .login {
   width: 100%;
   max-width: 330px;
   padding: 15px;
   margin: auto;
 }
 
-.app-authentication .form-signin .checkbox {
-  font-weight: 400;
+
+
+
+.app-products{
+  padding-bottom: 50px;
 }
-
-.app-authentication .form-signin .form-control {
-  position: relative;
-  box-sizing: border-box;
-  height: auto;
-  padding: 10px;
-  font-size: 16px;
-}
-
-.app-authentication .form-signin .form-control:focus {
-  z-index: 2;
-}
-
-.app-authentication .form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-.app-authentication .form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-
-
-
 
 .app-registration {
   background: #fff;
+  padding-bottom: 50px;
 }
 
 
@@ -72,7 +45,6 @@ nav {
 .app-home {
   background: #333;
   color: #fff;
-  padding-top: 100px;
 }
 
 
@@ -137,7 +109,7 @@ nav {
 }
 
 .footer{
-  height: 100px;
+  height: 150px;
   background: #333333;
   display: block;
 }
@@ -162,5 +134,9 @@ nav {
 
 
 #DivTableProducts{
+  display: none;
+}
+
+#DivAuthError{
   display: none;
 }

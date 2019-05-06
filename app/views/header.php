@@ -37,18 +37,22 @@ $link_list_res = "";
 $link_about = "";
 $sScriptFileName = $_SERVER["SCRIPT_FILENAME"];
 $sPathInfo = pathinfo($sScriptFileName);    
-switch ($sPathInfo['basename']) 
+
+switch ($controller) 
 {
-  case 'index.php':
+  case 'main':
     $link_main = '<span class="sr-only">(current)</span>';
     break;
-  case 'products.php':
+  case 'products':
     $link_products = '<span class="sr-only">(current)</span>';
     break;
-  case 'listres.php':
+  case 'product':
+    $link_products = '<span class="sr-only">(current)</span>';
+    break;
+  case 'source':
     $link_list_res = '<span class="sr-only">(current)</span>';
     break;
-  case 'about.php':
+  case 'about':
     $link_about = '<span class="sr-only">(current)</span>';
     break;
   default:

@@ -18,18 +18,18 @@
                     <div class="form-group">
                         <label for="InputFullName">Полное имя</label>
                         <input type="text" class="form-control" name="name" aria-describedby="emailHelp"
-                            placeholder="Введите полное имя" value="Иванов Иван Иванович">
+                            placeholder="Введите полное имя" value="">
                         <small id="Smal" class="form-text text-muted">Ваше полное имя (как к вам обращаться)</small>
                     </div>
                     <div class="form-group">
                         <label for="InputEmail">Электронная почта</label>
                         <input type="email" class="form-control" name="email" aria-describedby="SmalEmail"
-                            placeholder="Введите адрес" value="myemail@mysite.ru">
+                            placeholder="Введите адрес" value="">
                         <small id="SmalEmail" class="form-text text-muted">Ваш адрес электронной почты</small>
                     </div>
                     <div class="form-group">
                         <label for="InputLogin">Логин</label>
-                        <input type="text" class="form-control" name="login" placeholder="Введите логин" value="ivanov">
+                        <input type="text" class="form-control" name="login" placeholder="Введите логин" value="">
                     </div>
                     <div class="form-group">
                         <label for="InputPassword">Пароль</label>

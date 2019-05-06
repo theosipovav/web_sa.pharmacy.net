@@ -74,21 +74,4 @@ function fnLoadDataChartsPrice(nObjectId) {
             isError = true;
         }
     });
-    /*
-        var urlGenJson = "http://www.flotcharts.org/flot/examples/ajax/data-japan-gdp-growth.json";
-        function onDataReceived(series) {
-            alert(series.label);
-            if (!alreadyFetched[series.label]) {
-                alreadyFetched[series.label] = true;
-                data.push(series);
-            }
-            $.plot("#placeholder", data, FlotChartsOptions);
-        }
-        $.ajax({
-            url: urlGenJson,
-            type: "GET",
-            dataType: "json",
-            success: onDataReceived
-        });
-    */
 }

@@ -49,7 +49,7 @@ else
     {
         // Если задан только идентификатор источника,
         // то происходит поиск продукции по нему и по последнему сканированию
-        $pdoQuery .= "AND `so`.`source_id` = $nSourceId AND `so`.`log_id` = (SELECT `id` FROM `scan_log` WHERE `scan_log`.`source_id` = 1 ORDER BY `date` DESC LIMIT $nSourceId);";
+        $pdoQuery .= "AND `so`.`source_id` = $nSourceId AND `so`.`log_id` = (SELECT `id` FROM `scan_log` WHERE `scan_log`.`source_id` = $nSourceId ORDER BY `date` DESC LIMIT 1);";
     }
     else
     {

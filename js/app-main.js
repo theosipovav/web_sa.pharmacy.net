@@ -14,7 +14,7 @@ $(document).ready(function () {
                 data: FormRegistration,
                 success: function (data) {
                     if (data.status == "Success") {
-                        document.location.href = "./login.php";
+                        document.location.href = "?r=login";
                     } else {
                         alert('Возникла ошибка: ' + data.data);
                     }
@@ -40,7 +40,18 @@ $(document).ready(function () {
             data: FormLogin,
             success: function (data) {
                 if (data.status == "Success") {
-                    document.location.href = ".";
+                    if (data.data == "-1")
+                    {
+                        $('#DivAuthError').css("display","block");
+                        $('#inputLogin').val("");
+                        $('#inputPassword').val("");
+                        $('#inputLogin').addClass("is-invalid");
+                        $('#inputPassword').addClass("is-invalid");
+                    }
+                    else
+                    {
+                        document.location.href = ".";
+                    }
                 } else {
                     alert('Возникла ошибка: ' + data.data);
                 }
@@ -131,10 +142,6 @@ function fnVeiwScanDate() {
         }
     });
 }
-
-
-
-
 /**
  * Получение хронологии изменения цены у продукта,
  * заполнение графика "Динамика изменения цены"
@@ -171,4 +178,3 @@ function fnLoadObjectInfo(nObjectId) {
         }
     });
 }
-7
