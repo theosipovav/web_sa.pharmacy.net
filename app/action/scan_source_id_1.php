@@ -82,7 +82,7 @@ while (true) {
             continue;
         }
 
-        // Получение дополнительной информации найденного объекта
+        // Получение дополнительной информации у найденного объекта
         $sObjectInfo = "";
         @$substr = $item->find('div.c-prod-item__manufacturer div', 0)->innertext;
         if (isset($substr)) {
