@@ -1,7 +1,7 @@
 html,
 body {
   color: #000;
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 nav {
@@ -30,7 +30,7 @@ nav {
 
 
 
-.app-products{
+.app-products {
   padding-bottom: 50px;
 }
 
@@ -108,35 +108,75 @@ nav {
   font-size: 2em;
 }
 
-.footer{
+.footer {
   height: 150px;
   background: #333333;
   display: block;
 }
+
 #graph-wrapper {
   width: 640px;
   margin: 0 auto;
   margin-bottom: 35px;
 }
 
-#graph-wrapper > .graph-info {
-  box-sizing: content-box;
-}
-#graph-wrapper > .graph-container {
+#graph-wrapper>.graph-info {
   box-sizing: content-box;
 }
 
-#tooltip{
+#graph-wrapper>.graph-container {
+  box-sizing: content-box;
+}
+
+#tooltip {
   z-index: 10000;
   position: fixed;
   height: auto;
 }
 
 
-#DivTableProducts{
+#DivTableProducts {
   display: none;
 }
 
-#DivAuthError{
+#DivAuthError {
   display: none;
+}
+
+
+#TableProducts_length select {
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  vertical-align: middle;
+  background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px;
+  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+#TableProducts_filter input {
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  vertical-align: middle;
+  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }

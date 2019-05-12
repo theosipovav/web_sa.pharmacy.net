@@ -5,7 +5,8 @@ if (!isset($params[0]))
     exit();
 }
 $nObjectId = $params[0];
-$pdoConnection = new PDO('mysql:host=localhost;dbname=sa.pharmacy.net', 'administrator', '611094');
+$aConfig = include "config.php";
+$pdoConnection = new PDO('mysql:host='.$aConfig["host"].';dbname='.$aConfig["dbname"], $aConfig["user"], $aConfig["password"]);
 $pdoQuery = "SELECT `so`.`name` AS `so.name`, `so`.`price` AS `so.price`, `so`.`info` AS `so.info`, `ss`.`id` AS `ss.id`, `ss`.`name` AS `ss.name`, `sl`.`date` AS `sl.date`, `so`.`url` AS `so.url` ";
 $pdoQuery .= "FROM `scan_object` AS `so`, `scan_source` AS `ss`, `scan_log` AS `sl` ";
 $pdoQuery .= "WHERE `so`.`id` = $nObjectId AND `so`.`source_id` = `ss`.`id` AND `so`.`log_id` = `sl`.`id`;";

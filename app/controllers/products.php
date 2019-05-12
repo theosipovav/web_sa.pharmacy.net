@@ -11,7 +11,8 @@ if (isset($params[0])) $nSourceId = $params[0];     // Получение иде
 if (isset($params[1])) $nLogId = $params[1];        // Получение идентификатора лога из входного параметра
 
 // Подключение к базе данных MySql
-$pdoConnection = new PDO('mysql:host=localhost;dbname=sa.pharmacy.net', 'administrator', '611094');
+$aConfig = include "config.php";
+$pdoConnection = new PDO('mysql:host='.$aConfig["host"].';dbname='.$aConfig["dbname"], $aConfig["user"], $aConfig["password"]);
 
 // Получение данных для списка сканируемых ресурсов 
 $pdoQuery = "SELECT * FROM `scan_source`";

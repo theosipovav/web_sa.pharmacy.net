@@ -1,5 +1,6 @@
 <?php
-$pdoConnection = new PDO('mysql:host=localhost;dbname=sa.pharmacy.net', 'administrator', '611094');
+$aConfig = include "config.php";
+$pdoConnection = new PDO('mysql:host='.$aConfig["host"].';dbname='.$aConfig["dbname"], $aConfig["user"], $aConfig["password"]);
 $pdoQuery = "SELECT id, name, url, (SELECT date FROM `scan_log` WHERE source_id = 1 ORDER BY date DESC LIMIT 1) as date FROM scan_source";
 $pdoRes = $pdoConnection->query($pdoQuery);
 if ($pdoRes == false)

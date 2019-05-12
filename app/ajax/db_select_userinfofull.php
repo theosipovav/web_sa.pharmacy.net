@@ -8,7 +8,8 @@ try
         $id = $_SESSION["id"];
         $login = $_SESSION["login"];
         $name = $_SESSION["name"];
-        $pdoConnection = new PDO('mysql:host=localhost;dbname=sa.pharmacy.net', 'administrator', '611094');
+        $aConfig = include "../../config.php";
+        $pdoConnection = new PDO('mysql:host='.$aConfig["host"].';dbname='.$aConfig["dbname"], $aConfig["user"], $aConfig["password"]);
         $pdoQuery = "SELECT `user`.`login`, `user_card`.`name`, `user_card`.`email`, `user_card`.`date_registration` FROM `user`, `user_card` WHERE `user`.`id` like ('$id') AND `user`.`login` like ('$login') AND `user_card`.`name` like ('$name'); ";
         $pdoRes = $pdoConnection->query($pdoQuery);
         if ($pdoRes == false)
@@ -24,7 +25,6 @@ try
                 $Res["status"] = "Error";
                 $Res["data"] = "(code: 001) Произошла ошибка при получение данных";
                 $Res["data"] = $pdoQuery;
-
             }
             else
             {

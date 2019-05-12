@@ -19,7 +19,8 @@ $nLogMissedCount = 0;                   // Количество пропущен
 $sLogMsg = "";                          // Результат парсинга
 
 // Подключение к базе данных MySql
-$pdoConnection = new PDO('mysql:host=localhost;dbname=sa.pharmacy.net', 'administrator', '611094');
+$aConfig = include "../../config.php";
+$pdoConnection = new PDO('mysql:host='.$aConfig["host"].';dbname='.$aConfig["dbname"], $aConfig["user"], $aConfig["password"]);
 
 // Добавление строки в таблицу логов
 $pdoQuery = "INSERT INTO `scan_log` (`id`, `source_id`, `date`) VALUES (NULL, '$nSourceId', '$dateCurrent');";

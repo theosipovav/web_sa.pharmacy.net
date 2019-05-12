@@ -1,9 +1,9 @@
 <?php
 $Res = array("status"=>"Error", "data"=>"");
-
 try 
 {
-    $pdoConnection = new PDO('mysql:host=localhost;dbname=sa.pharmacy.net', 'administrator', '611094');
+    $aConfig = include "../../config.php";
+    $pdoConnection = new PDO('mysql:host='.$aConfig["host"].';dbname='.$aConfig["dbname"], $aConfig["user"], $aConfig["password"]);
     $pdoQuery = "SELECT `id` FROM `scan_log` ORDER BY `date` DESC LIMIT 1";
     $pdoRes = $pdoConnection->query($pdoQuery);
     if ($pdoRes == false)

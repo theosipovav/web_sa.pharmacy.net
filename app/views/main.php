@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,17 +8,15 @@
   <link rel="stylesheet" type="text/css" href="css/bootstrap-table.min.css">
   <link rel="stylesheet" type="text/css" href="css/app-products.css">
   <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
-
   <link href="css/flotcharts/examples.css" rel="stylesheet" type="text/css">
-
   <link rel="stylesheet" type="text/css" href="css/app-main.css">
   <title>Система по синтаксическому анализу открытых веб ресурсов</title>
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-	<script defer type="text/javascript" charset="utf8" src="js/jquery-3.2.1.min.js"></script>
-  <script defer type="text/javascript" charset="utf8" src="js/jquery-ui.min.js"></script>
+	<script defer type="text/javascript" charset="utf8" src="js/jquery/jquery-3.2.1.min.js"></script>
+  <script defer type="text/javascript" charset="utf8" src="js/jquery/jquery-ui.min.js"></script>
   <script defer type="text/javascript" charset="utf8" src="js/popper.min.js"></script>
-  <script defer type="text/javascript" charset="utf8" src="js/bootstrap.min.js"></script>
-  <script defer type="text/javascript" charset="utf8" src="js/jquery.dataTables.js"></script>
+  <script defer type="text/javascript" charset="utf8" src="js/bootstrap/bootstrap.min.js"></script>
+  <script defer type="text/javascript" charset="utf8" src="js/jquery/jquery.dataTables.js"></script>
 	<script defer language="javascript" type="text/javascript" src="js/flotcharts/jquery.canvaswrapper.js"></script>
 	<script defer language="javascript" type="text/javascript" src="js/flotcharts/jquery.colorhelpers.js"></script>
 	<script defer language="javascript" type="text/javascript" src="js/flotcharts/jquery.flot.js"></script>
@@ -44,16 +41,10 @@
 	<script defer language="javascript" type="text/javascript" src="js/flotcharts/jquery.flot.legend.js"></script>
 	<script defer language="javascript" type="text/javascript" src="js/flotcharts/jquery.flot.categories.js"></script>
   <script defer type="text/javascript" charset="utf8" src="js/app-main.js"></script>
-
 </head>
-
 <body>
   <?php echo $header; ?>
   <?php echo $content; ?>
   <?php echo $footer; ?>
-
-
-  
 </body>
-
 </html>

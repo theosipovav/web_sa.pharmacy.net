@@ -19,7 +19,8 @@ $nLogMissedCount = 0;                   // Количество пропущен
 $sLogMsg = "";                          // Результат парсинга
 
 // Подключение к базе данных MySql
-$pdoConnection = new PDO('mysql:host=localhost;dbname=sa.pharmacy.net', 'administrator', '611094');
+$aConfig = include "../../config.php";
+$pdoConnection = new PDO('mysql:host='.$aConfig["host"].';dbname='.$aConfig["dbname"], $aConfig["user"], $aConfig["password"]);
 
 // Добавление строки в таблицу логов
 $pdoQuery = "INSERT INTO `scan_log` (`id`, `source_id`, `date`) VALUES (NULL, '$nSourceId', '$dateCurrent');";
@@ -48,7 +49,7 @@ while (true) {
     // Динамическая генерация адреса ресурса, с учетом нумерации страниц
     $sUrlParsing = 'https://366.ru/c/lekarstva/?page=' . $nPageNum . '&q=%3Apriority-desc';
 
-    // Чтениеи и сканирование содержимого страницы
+    // Чтение и сканирование содержимого страницы
     @$htmlPage = file_get_html($sUrlParsing);
     if ($htmlPage == null) {
         break;
@@ -71,7 +72,7 @@ while (true) {
         }
 
         // Получение цены найденного объекта
-        @$nObjectPrice = $item->find('span.b-price span meta', 0)->getAllAttributes()["content"];
+        @$nObjectPrice = $item->find('span.b-price span     ', 0)->getAllAttributes()["content"];
         if (isset($nObjectPrice)) {
             $nObjectPrice = preg_replace("/[^0123456789.,]/", '', $nObjectPrice);
             $nObjectPrice = trim($nObjectPrice);

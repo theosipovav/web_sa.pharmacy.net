@@ -11,7 +11,8 @@ try
     $name = $_POST["name"];
     $email = $_POST["email"];
     $date = date('Y-m-d');
-    $pdoConnection = new PDO('mysql:host=localhost;dbname=sa.pharmacy.net', 'administrator', '611094');
+    $aConfig = include "../../config.php";
+    $pdoConnection = new PDO('mysql:host='.$aConfig["host"].';dbname='.$aConfig["dbname"], $aConfig["user"], $aConfig["password"]);
     $pdoQuery = "INSERT INTO `user` (id, login, password) VALUES (NULL, '$login', '$password')";
     $pdoRes = $pdoConnection->query($pdoQuery);
     if ($pdoRes == false)
@@ -71,4 +72,3 @@ catch (PDOException $ex)
     $Res["data"] = $ex->getMessage();
 }
 print(json_encode($Res));
-?> 

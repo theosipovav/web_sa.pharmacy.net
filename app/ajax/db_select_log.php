@@ -7,13 +7,11 @@ if (!isset($_GET["id"]))
     print(json_encode($Res));
     exit();
 }
-
 $nSourceId = $_GET["id"];
-
-
 try 
 {
-    $pdoConnection = new PDO('mysql:host=localhost;dbname=sa.pharmacy.net', 'administrator', '611094');
+    $aConfig = include "../../config.php";
+    $pdoConnection = new PDO('mysql:host='.$aConfig["host"].';dbname='.$aConfig["dbname"], $aConfig["user"], $aConfig["password"]);
     $pdoQuery = "SELECT id, date FROM `scan_log` WHERE `source_id` = $nSourceId";
     $pdoRes = $pdoConnection->query($pdoQuery);
     if ($pdoRes == false)

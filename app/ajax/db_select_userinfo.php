@@ -16,7 +16,8 @@ try
     {
         $login = $_POST["login"];
         $password = md5($_POST["password"]);
-        $pdoConnection = new PDO('mysql:host=localhost;dbname=sa.pharmacy.net', 'administrator', '611094');
+        $aConfig = include "../../config.php";
+        $pdoConnection = new PDO('mysql:host='.$aConfig["host"].';dbname='.$aConfig["dbname"], $aConfig["user"], $aConfig["password"]);
         $pdoQuery = "SELECT `user`.`id`, `user`.`login`,`user_card`.`name` FROM `user`, `user_card` WHERE `login` like ('$login') and `password` like ('$password') AND `user`.`id`=`user_card`.`user_id`";
         $pdoRes = $pdoConnection->query($pdoQuery);
         if ($pdoRes == false)

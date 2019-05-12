@@ -7,11 +7,11 @@ if (!isset($_GET["name"]))
     print(json_encode($Res));
     exit();
 }
-
 $nObjectId = $_GET["name"];
 try 
 {
-    $pdoConnection = new PDO('mysql:host=localhost;dbname=sa.pharmacy.net', 'administrator', '611094');
+    $aConfig = include "../../config.php";
+    $pdoConnection = new PDO('mysql:host='.$aConfig["host"].';dbname='.$aConfig["dbname"], $aConfig["user"], $aConfig["password"]);
     $pdoQuery = $sql  = "SELECT name, info FROM `scan_object` WHERE `id`='$nObjectId'";
     $pdoRes = $pdoConnection->query($pdoQuery);
     if ($pdoRes == false)
@@ -42,7 +42,6 @@ try
             $dateScan = $item["date"];
             $nPrice = $item["price"];
             array_push($aResData, array("$dateScan", $nPrice));
-            //array_push($aResData, array($n, $nPrice));
             $n++;
         }
         $Res["status"] = "Success";

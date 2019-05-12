@@ -14,10 +14,10 @@ if (!isset($_GET["source"]) || !isset($_GET["log"]))
 $Res = array();
 $sSourceId = $_GET["source"];
 $sLogId = $_GET["log"];
-
 try 
 {
-    $pdoConnection = new PDO('mysql:host=localhost;dbname=sa.pharmacy.net', 'administrator', '611094');
+    $aConfig = include "../../config.php";
+    $pdoConnection = new PDO('mysql:host='.$aConfig["host"].';dbname='.$aConfig["dbname"], $aConfig["user"], $aConfig["password"]);
     $pdoQuery = "SELECT so.id as `id`, so.name as `name`, ss.name as 'source', so.price as `price`, sl.date as `date` ";
     $pdoQuery .= "FROM scan_object as so, scan_source as ss, scan_log as sl ";
     $pdoQuery .= "WHERE so.cource_id = $sSourceId AND so.log_id = $sLogId AND so.cource_id = ss.id AND so.log_id = sl.id;";
@@ -25,7 +25,6 @@ try
     if ($pdoRes == false)
     {
         $Res["status"] = "Error";
-        //$Res["data"] = "(code: 005) Произошла ошибка при выполнение авторизации";
     }
     else
     {
