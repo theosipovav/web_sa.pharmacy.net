@@ -66,6 +66,7 @@ while (true) {
             $sObjectName = str_replace("'", "*", $sObjectName);
             $sObjectName = str_replace("\\", "|", $sObjectName);
         } else {
+            $nLogMissedCount++;
             continue;
         }
 
@@ -80,9 +81,11 @@ while (true) {
                 $nObjectPrice = str_replace("'", "*", $nObjectPrice);
                 $nObjectPrice = str_replace("\\", "|", $nObjectPrice);
             } else {
+                $nLogMissedCount++;
                 continue;
             }
         } else {
+            $nLogMissedCount++;
             continue;
         }
 

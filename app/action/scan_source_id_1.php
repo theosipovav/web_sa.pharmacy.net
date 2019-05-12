@@ -68,11 +68,11 @@ while (true) {
             $sObjectName = str_replace("'", "*", $sObjectName);
             $sObjectName = str_replace("\\", "|", $sObjectName);
         } else {
+            $nLogMissedCount++;
             continue;
         }
-
         // Получение цены найденного объекта
-        @$nObjectPrice = $item->find('span.b-price span     ', 0)->getAllAttributes()["content"];
+        @$nObjectPrice = $item->find('span.b-price span meta', 0)->getAllAttributes()["content"];
         if (isset($nObjectPrice)) {
             $nObjectPrice = preg_replace("/[^0123456789.,]/", '', $nObjectPrice);
             $nObjectPrice = trim($nObjectPrice);
@@ -80,9 +80,9 @@ while (true) {
             $nObjectPrice = str_replace("'", "*", $nObjectPrice);
             $nObjectPrice = str_replace("\\", "|", $nObjectPrice);
         } else {
+            $nLogMissedCount++;
             continue;
         }
-
         // Получение дополнительной информации у найденного объекта
         $sObjectInfo = "";
         @$substr = $item->find('div.c-prod-item__manufacturer div', 0)->innertext;
@@ -105,7 +105,6 @@ while (true) {
         }
         $sObjectInfo = str_replace("'", "*", $sObjectInfo);
         $sObjectInfo = str_replace("\\", "|", $sObjectInfo);
-
         // Добавление строки в таблицу отсканируемых объектов
         $pdoQuery = "INSERT INTO `scan_object` (`id`, `source_id`, `name`, `price`, `info`, `log_id`, `url`) VALUES (NULL, '$nSourceId', '$sObjectName', '$nObjectPrice', '$sObjectInfo', '$nLogId', '$sUrlParsing')";
         $pdoRes = $pdoConnection->query($pdoQuery);
@@ -118,7 +117,6 @@ while (true) {
         }
     }
 }
-
 // Обновление данных(количество загруженных объектов и результат парсинга) в созданной ранее записи лога 
 if ($sLogMsg == "") {
     $sLogMsg = "Ошибок нет";

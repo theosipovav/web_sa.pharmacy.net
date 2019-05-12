@@ -65,6 +65,7 @@ while (true) {
             $sObjectName = str_replace("'", "*", $sObjectName);
             $sObjectName = str_replace("\\", "|", $sObjectName);
         } else {
+            $nLogMissedCount++;
             continue;
         }
 
@@ -77,6 +78,7 @@ while (true) {
             $nObjectPrice = str_replace("'", "*", $nObjectPrice);
             $nObjectPrice = str_replace("\\", "|", $nObjectPrice);
         } else {
+            $nLogMissedCount++;
             continue;
         }
 
@@ -106,7 +108,6 @@ while (true) {
         }
     }
 }
-
 // Обновление данных(количество загруженных объектов и результат парсинга) в созданной ранее записи лога 
 if ($sLogMsg == "") {
     $sLogMsg = "Ошибок нет";
@@ -118,6 +119,5 @@ if ($pdoRes == false) {
     print("-1");
     exit();
 }
-
 // Вывод результата(количество загруженных объектов)
 print($nLogCount);
